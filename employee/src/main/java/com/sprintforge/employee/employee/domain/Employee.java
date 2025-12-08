@@ -20,9 +20,10 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Instant;
 import java.util.UUID;
 
-import static java.lang.System.currentTimeMillis;
+import static java.time.Instant.now;
 import static java.util.UUID.randomUUID;
 
 @Getter
@@ -44,8 +45,8 @@ public class Employee {
     private EmployeeProfileImage profileImage;
     private Boolean isActive;
     private Boolean isDeleted;
-    private final Long createdAt;
-    private Long updatedAt;
+    private final Instant createdAt;
+    private Instant updatedAt;
     @Setter
     private EmployeePosition position;
 
@@ -63,7 +64,7 @@ public class Employee {
             BigDecimal irtraPercentage,
             String profileImage
     ) {
-        long now = currentTimeMillis();
+        Instant timestamp = now();
 
         this.id = new EmployeeId(randomUUID());
         this.cui = new EmployeeCui(cui);
@@ -81,8 +82,8 @@ public class Employee {
         this.profileImage = new EmployeeProfileImage(profileImage);
         this.isActive = true;
         this.isDeleted = false;
-        this.createdAt = now;
-        this.updatedAt = now;
+        this.createdAt = timestamp;
+        this.updatedAt = timestamp;
     }
 
     public Employee(
@@ -101,8 +102,8 @@ public class Employee {
             String profileImage,
             Boolean isActive,
             Boolean isDeleted,
-            Long createdAt,
-            Long updatedAt
+            Instant createdAt,
+            Instant updatedAt
     ) {
         this.id = new EmployeeId(id);
         this.cui = new EmployeeCui(cui);
@@ -145,7 +146,7 @@ public class Employee {
         this.igssPercentage = new EmployeePercentage(igssPercentage);
         this.irtraPercentage = new EmployeePercentage(irtraPercentage);
         this.profileImage = new EmployeeProfileImage(profileImage);
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 
     public void activate() {
@@ -153,7 +154,7 @@ public class Employee {
             throw new IllegalStateException("No se puede activar un empleado eliminado");
         }
         this.isActive = true;
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 
     public void deactivate() {
@@ -161,11 +162,11 @@ public class Employee {
             throw new IllegalStateException("No se puede desactivar un empleado eliminado");
         }
         this.isActive = false;
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 
     public void delete() {
         this.isDeleted = true;
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 }

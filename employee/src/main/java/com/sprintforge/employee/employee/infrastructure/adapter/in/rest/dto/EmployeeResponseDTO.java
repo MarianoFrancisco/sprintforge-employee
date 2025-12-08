@@ -5,7 +5,7 @@ import com.sprintforge.employee.employee.domain.valueobject.EmployeeWorkloadType
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 public record EmployeeResponseDTO(
@@ -32,8 +32,8 @@ public record EmployeeResponseDTO(
         boolean isActive,
         boolean isDeleted,
 
-        long createdAt,
-        long updatedAt,
+        Instant createdAt,
+        Instant updatedAt,
 
         EmployeePosition position
 ) {

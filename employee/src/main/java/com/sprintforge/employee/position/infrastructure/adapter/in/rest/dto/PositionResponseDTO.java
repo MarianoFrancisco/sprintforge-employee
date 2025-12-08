@@ -1,5 +1,6 @@
 package com.sprintforge.employee.position.infrastructure.adapter.in.rest.dto;
 
+import java.time.Instant;
 import java.util.UUID;
 
 public record PositionResponseDTO(
@@ -8,7 +9,7 @@ public record PositionResponseDTO(
         String description,
         boolean isActive,
         boolean isDeleted,
-        long createdAt,
-        long updatedAt
+        Instant createdAt,
+        Instant updatedAt
 ) {
 }

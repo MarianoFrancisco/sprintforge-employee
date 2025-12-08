@@ -17,6 +17,7 @@ import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Instant;
 import java.util.UUID;
 
 @Getter
@@ -78,8 +79,8 @@ public class EmployeeEntity {
     private Boolean isDeleted;
 
     @Column(name = "created_at", nullable = false)
-    private Long createdAt;
+    private Instant createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    private Long updatedAt;
+    private Instant updatedAt;
 }

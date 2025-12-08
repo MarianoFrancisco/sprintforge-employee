@@ -11,10 +11,11 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
-import static java.lang.System.currentTimeMillis;
+import static java.time.Instant.now;
 import static java.util.UUID.randomUUID;
 
 @Getter
@@ -30,8 +31,8 @@ public class EmploymentHistory {
     private final EmployeeSalary salary;
     private final EmploymentHistoryNotes notes;
 
-    private final Long createdAt;
-    private final Long updatedAt;
+    private final Instant createdAt;
+    private final Instant updatedAt;
     @Setter
     private EmploymentHistoryEmployee employee;
 
@@ -43,7 +44,7 @@ public class EmploymentHistory {
             BigDecimal salary,
             String notes
     ) {
-        long now = currentTimeMillis();
+        Instant timestamp = now();
 
         this.id = new EmploymentHistoryId(randomUUID());
         this.employeeId = new EmployeeId(employeeId);
@@ -53,8 +54,8 @@ public class EmploymentHistory {
         this.endDate = endDate;
         this.salary = new EmployeeSalary(salary);
         this.notes = new EmploymentHistoryNotes(notes);
-        this.createdAt = now;
-        this.updatedAt = now;
+        this.createdAt = timestamp;
+        this.updatedAt = timestamp;
     }
 
     public EmploymentHistory(
@@ -65,8 +66,8 @@ public class EmploymentHistory {
             LocalDate endDate,
             BigDecimal salary,
             String notes,
-            Long createdAt,
-            Long updatedAt
+            Instant createdAt,
+            Instant updatedAt
     ) {
         this.id = new EmploymentHistoryId(id);
         this.employeeId = new EmployeeId(employeeId);
