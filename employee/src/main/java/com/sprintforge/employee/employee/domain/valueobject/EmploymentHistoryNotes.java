@@ -1,0 +1,9 @@
+package com.sprintforge.employee.employee.domain.valueobject;
+
+public record EmploymentHistoryNotes(String value) {
+    public EmploymentHistoryNotes {
+        if (value != null && value.length() > 255) {
+            throw new IllegalArgumentException("Las notas no pueden tener más de 255 caracteres");
+        }
+    }
+}
