@@ -5,9 +5,10 @@ import com.sprintforge.employee.position.domain.valueobject.PositionId;
 import com.sprintforge.employee.position.domain.valueobject.PositionName;
 import lombok.Getter;
 
+import java.time.Instant;
 import java.util.UUID;
 
-import static java.lang.System.currentTimeMillis;
+import static java.time.Instant.now;
 import static java.util.UUID.randomUUID;
 
 @Getter
@@ -17,8 +18,8 @@ public class Position {
     private PositionDescription description;
     private Boolean isActive;
     private Boolean isDeleted;
-    private final Long createdAt;
-    private Long updatedAt;
+    private final Instant createdAt;
+    private Instant updatedAt;
 
     public Position(
             String name,
@@ -29,9 +30,10 @@ public class Position {
         this.description = new PositionDescription(description);
         this.isActive = true;
         this.isDeleted = false;
-        long now = currentTimeMillis();
-        this.createdAt = now;
-        this.updatedAt = now;
+        Instant timestamp = now();
+
+        this.createdAt = timestamp;
+        this.updatedAt = timestamp;
     }
 
     public Position(
@@ -40,8 +42,8 @@ public class Position {
             String description,
             Boolean isActive,
             Boolean isDeleted,
-            Long createdAt,
-            Long updatedAt
+            Instant createdAt,
+            Instant updatedAt
     ) {
         this.id = new PositionId(id);
         this.name = new PositionName(name);
@@ -55,7 +57,7 @@ public class Position {
     public void updateDetails(String name, String description) {
         this.name = new PositionName(name);
         this.description = new PositionDescription(description);
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 
     public void activate() {
@@ -63,7 +65,7 @@ public class Position {
             throw new IllegalStateException("No se puede activar un puesto eliminado");
         }
         this.isActive = true;
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 
     public void deactivate() {
@@ -71,11 +73,11 @@ public class Position {
             throw new IllegalStateException("No se puede desactivar un puesto eliminado");
         }
         this.isActive = false;
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 
     public void delete() {
         this.isDeleted = true;
-        this.updatedAt = currentTimeMillis();
+        this.updatedAt = now();
     }
 }
