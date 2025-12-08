@@ -59,6 +59,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ex.getBindingResult().getAllErrors().forEach(error -> {
             String field = ((FieldError) error).getField();
             String msg = error.getDefaultMessage();
+            assert msg != null;
             errors.put(field, msg);
         });
 
