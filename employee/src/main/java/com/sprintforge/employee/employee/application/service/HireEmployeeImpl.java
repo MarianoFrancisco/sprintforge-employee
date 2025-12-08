@@ -2,8 +2,8 @@ package com.sprintforge.employee.employee.application.service;
 
 import com.sprintforge.employee.employee.application.mapper.EmployeeMapper;
 import com.sprintforge.employee.employee.application.mapper.EmploymentHistoryMapper;
-import com.sprintforge.employee.employee.application.port.in.employee.hire.HireEmployee;
-import com.sprintforge.employee.employee.application.port.in.employee.hire.HireEmployeeCommand;
+import com.sprintforge.employee.employee.application.port.in.command.HireEmployee;
+import com.sprintforge.employee.employee.application.port.in.command.HireEmployeeCommand;
 import com.sprintforge.employee.employee.application.port.out.persistence.SaveEmployee;
 import com.sprintforge.employee.employee.application.port.out.persistence.SaveEmploymentHistory;
 import com.sprintforge.employee.employee.domain.Employee;

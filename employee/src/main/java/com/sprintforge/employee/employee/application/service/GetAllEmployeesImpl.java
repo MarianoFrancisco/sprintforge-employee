@@ -1,7 +1,7 @@
 package com.sprintforge.employee.employee.application.service;
 
-import com.sprintforge.employee.employee.application.port.in.employee.getall.GetAllEmployees;
-import com.sprintforge.employee.employee.application.port.in.employee.getall.GetAllEmployeesQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployees;
+import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployeesQuery;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindAllEmployees;
 import com.sprintforge.employee.employee.domain.Employee;
 import lombok.RequiredArgsConstructor;

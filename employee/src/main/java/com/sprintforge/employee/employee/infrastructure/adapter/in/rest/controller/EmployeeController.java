@@ -1,14 +1,14 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.controller;
 
-import com.sprintforge.employee.employee.application.port.in.employee.activate.ActivateEmployee;
-import com.sprintforge.employee.employee.application.port.in.employee.deactivate.DeactivateEmployee;
-import com.sprintforge.employee.employee.application.port.in.employee.delete.DeleteEmployee;
-import com.sprintforge.employee.employee.application.port.in.employee.getall.GetAllEmployees;
-import com.sprintforge.employee.employee.application.port.in.employee.getbycui.GetEmployeeByCui;
-import com.sprintforge.employee.employee.application.port.in.employee.getbyemail.GetEmployeeByEmail;
-import com.sprintforge.employee.employee.application.port.in.employee.getbyid.GetEmployeeById;
-import com.sprintforge.employee.employee.application.port.in.employee.hire.HireEmployee;
-import com.sprintforge.employee.employee.application.port.in.employee.update.UpdateEmployeeDetail;
+import com.sprintforge.employee.employee.application.port.in.command.ActivateEmployee;
+import com.sprintforge.employee.employee.application.port.in.command.DeactivateEmployee;
+import com.sprintforge.employee.employee.application.port.in.command.DeleteEmployee;
+import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployees;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByCui;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByEmail;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeById;
+import com.sprintforge.employee.employee.application.port.in.command.HireEmployee;
+import com.sprintforge.employee.employee.application.port.in.command.UpdateEmployeeDetail;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;

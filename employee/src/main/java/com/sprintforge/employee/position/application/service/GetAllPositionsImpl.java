@@ -1,7 +1,7 @@
 package com.sprintforge.employee.position.application.service;
 
-import com.sprintforge.employee.position.application.port.in.getall.GetAllPositions;
-import com.sprintforge.employee.position.application.port.in.getall.GetAllPositionsQuery;
+import com.sprintforge.employee.position.application.port.in.query.GetAllPositions;
+import com.sprintforge.employee.position.application.port.in.query.GetAllPositionsQuery;
 import com.sprintforge.employee.position.application.port.out.persistence.FindAllPositions;
 import com.sprintforge.employee.position.domain.Position;
 import lombok.RequiredArgsConstructor;

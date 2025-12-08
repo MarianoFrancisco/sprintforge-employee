@@ -1,14 +1,14 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.employee.employee.application.port.in.employee.activate.ActivateEmployeeCommand;
-import com.sprintforge.employee.employee.application.port.in.employee.deactivate.DeactivateEmployeeCommand;
-import com.sprintforge.employee.employee.application.port.in.employee.delete.DeleteEmployeeCommand;
-import com.sprintforge.employee.employee.application.port.in.employee.getall.GetAllEmployeesQuery;
-import com.sprintforge.employee.employee.application.port.in.employee.getbycui.GetEmployeeByCuiQuery;
-import com.sprintforge.employee.employee.application.port.in.employee.getbyemail.GetEmployeeByEmailQuery;
-import com.sprintforge.employee.employee.application.port.in.employee.getbyid.GetEmployeeByIdQuery;
-import com.sprintforge.employee.employee.application.port.in.employee.hire.HireEmployeeCommand;
-import com.sprintforge.employee.employee.application.port.in.employee.update.UpdateEmployeeDetailCommand;
+import com.sprintforge.employee.employee.application.port.in.command.ActivateEmployeeCommand;
+import com.sprintforge.employee.employee.application.port.in.command.DeactivateEmployeeCommand;
+import com.sprintforge.employee.employee.application.port.in.command.DeleteEmployeeCommand;
+import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployeesQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByCuiQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByEmailQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByIdQuery;
+import com.sprintforge.employee.employee.application.port.in.command.HireEmployeeCommand;
+import com.sprintforge.employee.employee.application.port.in.command.UpdateEmployeeDetailCommand;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;

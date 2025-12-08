@@ -1,6 +1,6 @@
 package com.sprintforge.employee.position.infrastructure.adapter.out.persistence;
 
-import com.sprintforge.employee.position.application.port.in.getall.GetAllPositionsQuery;
+import com.sprintforge.employee.position.application.port.in.query.GetAllPositionsQuery;
 import com.sprintforge.employee.position.application.port.out.persistence.*;
 import com.sprintforge.employee.position.domain.Position;
 import com.sprintforge.employee.position.infrastructure.adapter.out.persistence.entity.PositionEntity;

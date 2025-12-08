@@ -1,8 +1,8 @@
 package com.sprintforge.employee.employee.application.service;
 
 import com.sprintforge.employee.employee.application.exception.EmployeeNotFoundException;
-import com.sprintforge.employee.employee.application.port.in.employee.getbyid.GetEmployeeById;
-import com.sprintforge.employee.employee.application.port.in.employee.getbyid.GetEmployeeByIdQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeById;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByIdQuery;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindEmployeeById;
 import com.sprintforge.employee.employee.domain.Employee;
 import lombok.RequiredArgsConstructor;
