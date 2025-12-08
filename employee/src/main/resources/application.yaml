@@ -35,8 +35,8 @@ spring:
 logging:
   level:
     root: ${LOG_LEVEL_ROOT:INFO}
-    org.hibernate.SQL: ${LOG_LEVEL_HIBERNATE_SQL:info}
-    org.hibernate.orm.jdbc.bind: ${LOG_LEVEL_HIBERNATE_BIND:info}
+    org.hibernate.SQL: ${LOG_LEVEL_HIBERNATE_SQL:INFO}
+    org.hibernate.orm.jdbc.bind: ${LOG_LEVEL_HIBERNATE_BIND:INFO}
 
 eureka:
   instance:
