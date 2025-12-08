@@ -2,8 +2,8 @@ package com.sprintforge.employee.position.application.service;
 
 import com.sprintforge.employee.position.application.exception.DuplicatePositionException;
 import com.sprintforge.employee.position.application.exception.PositionNotFoundException;
-import com.sprintforge.employee.position.application.port.in.update.UpdatePositionDetail;
-import com.sprintforge.employee.position.application.port.in.update.UpdatePositionDetailCommand;
+import com.sprintforge.employee.position.application.port.in.command.UpdatePositionDetail;
+import com.sprintforge.employee.position.application.port.in.command.UpdatePositionDetailCommand;
 import com.sprintforge.employee.position.application.port.out.persistence.ExistsPositionByNameAndIdNot;
 import com.sprintforge.employee.position.application.port.out.persistence.FindPositionById;
 import com.sprintforge.employee.position.application.port.out.persistence.SavePosition;

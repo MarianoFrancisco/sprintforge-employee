@@ -1,6 +1,6 @@
 package com.sprintforge.employee.position.application.mapper;
 
-import com.sprintforge.employee.position.application.port.in.create.CreatePositionCommand;
+import com.sprintforge.employee.position.application.port.in.command.CreatePositionCommand;
 import com.sprintforge.employee.position.domain.Position;
 import lombok.experimental.UtilityClass;
 

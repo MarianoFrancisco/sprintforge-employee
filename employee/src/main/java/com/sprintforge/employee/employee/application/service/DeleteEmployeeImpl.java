@@ -1,8 +1,8 @@
 package com.sprintforge.employee.employee.application.service;
 
 import com.sprintforge.employee.employee.application.exception.EmployeeNotFoundException;
-import com.sprintforge.employee.employee.application.port.in.employee.delete.DeleteEmployee;
-import com.sprintforge.employee.employee.application.port.in.employee.delete.DeleteEmployeeCommand;
+import com.sprintforge.employee.employee.application.port.in.command.DeleteEmployee;
+import com.sprintforge.employee.employee.application.port.in.command.DeleteEmployeeCommand;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindEmployeeById;
 import com.sprintforge.employee.employee.application.port.out.persistence.SaveEmployee;
 import com.sprintforge.employee.employee.domain.Employee;

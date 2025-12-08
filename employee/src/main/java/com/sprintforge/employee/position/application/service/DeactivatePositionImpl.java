@@ -1,8 +1,8 @@
 package com.sprintforge.employee.position.application.service;
 
 import com.sprintforge.employee.position.application.exception.PositionNotFoundException;
-import com.sprintforge.employee.position.application.port.in.deactivate.DeactivatePosition;
-import com.sprintforge.employee.position.application.port.in.deactivate.DeactivatePositionCommand;
+import com.sprintforge.employee.position.application.port.in.command.DeactivatePosition;
+import com.sprintforge.employee.position.application.port.in.command.DeactivatePositionCommand;
 import com.sprintforge.employee.position.application.port.out.persistence.FindPositionById;
 import com.sprintforge.employee.position.application.port.out.persistence.SavePosition;
 import com.sprintforge.employee.position.domain.Position;

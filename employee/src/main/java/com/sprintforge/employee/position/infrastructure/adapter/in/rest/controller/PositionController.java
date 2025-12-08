@@ -1,12 +1,12 @@
 package com.sprintforge.employee.position.infrastructure.adapter.in.rest.controller;
 
-import com.sprintforge.employee.position.application.port.in.activate.ActivatePosition;
-import com.sprintforge.employee.position.application.port.in.create.CreatePosition;
-import com.sprintforge.employee.position.application.port.in.deactivate.DeactivatePosition;
-import com.sprintforge.employee.position.application.port.in.delete.DeletePosition;
-import com.sprintforge.employee.position.application.port.in.getall.GetAllPositions;
-import com.sprintforge.employee.position.application.port.in.update.UpdatePositionDetail;
-import com.sprintforge.employee.position.application.port.in.getbyid.GetPositionById;
+import com.sprintforge.employee.position.application.port.in.command.ActivatePosition;
+import com.sprintforge.employee.position.application.port.in.command.CreatePosition;
+import com.sprintforge.employee.position.application.port.in.command.DeactivatePosition;
+import com.sprintforge.employee.position.application.port.in.command.DeletePosition;
+import com.sprintforge.employee.position.application.port.in.query.GetAllPositions;
+import com.sprintforge.employee.position.application.port.in.command.UpdatePositionDetail;
+import com.sprintforge.employee.position.application.port.in.query.GetPositionById;
 import com.sprintforge.employee.position.domain.Position;
 import com.sprintforge.employee.position.infrastructure.adapter.in.rest.dto.CreatePositionRequestDTO;
 import com.sprintforge.employee.position.infrastructure.adapter.in.rest.dto.PositionResponseDTO;

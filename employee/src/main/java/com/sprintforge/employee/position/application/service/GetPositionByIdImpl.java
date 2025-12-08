@@ -1,8 +1,8 @@
 package com.sprintforge.employee.position.application.service;
 
 import com.sprintforge.employee.position.application.exception.PositionNotFoundException;
-import com.sprintforge.employee.position.application.port.in.getbyid.GetPositionById;
-import com.sprintforge.employee.position.application.port.in.getbyid.GetPositionByIdQuery;
+import com.sprintforge.employee.position.application.port.in.query.GetPositionById;
+import com.sprintforge.employee.position.application.port.in.query.GetPositionByIdQuery;
 import com.sprintforge.employee.position.application.port.out.persistence.FindPositionById;
 import com.sprintforge.employee.position.domain.Position;
 import lombok.RequiredArgsConstructor;
