@@ -16,8 +16,8 @@ public class PositionEntityMapper {
                 entity.getId(),
                 entity.getName(),
                 entity.getDescription(),
-                entity.getIsActive(),
-                entity.getIsDeleted(),
+                entity.isActive(),
+                entity.isDeleted(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );
@@ -32,8 +32,8 @@ public class PositionEntityMapper {
                 .id(domain.getId().value())
                 .name(domain.getName().value())
                 .description(domain.getDescription().value())
-                .isActive(domain.getIsActive())
-                .isDeleted(domain.getIsDeleted())
+                .isActive(domain.isActive())
+                .isDeleted(domain.isDeleted())
                 .createdAt(domain.getCreatedAt())
                 .updatedAt(domain.getUpdatedAt())
                 .build();

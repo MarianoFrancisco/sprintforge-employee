@@ -43,8 +43,8 @@ public class Employee {
     private EmployeePercentage igssPercentage;
     private EmployeePercentage irtraPercentage;
     private EmployeeProfileImage profileImage;
-    private Boolean isActive;
-    private Boolean isDeleted;
+    private boolean isActive;
+    private boolean isDeleted;
     private final Instant createdAt;
     private Instant updatedAt;
     @Setter
@@ -153,6 +153,9 @@ public class Employee {
         if (this.isDeleted) {
             throw new IllegalStateException("No se puede activar un empleado eliminado");
         }
+        if (this.isActive) {
+            throw new IllegalStateException("El empleado ya está activo");
+        }
         this.isActive = true;
         this.updatedAt = now();
     }
@@ -161,11 +164,17 @@ public class Employee {
         if (this.isDeleted) {
             throw new IllegalStateException("No se puede desactivar un empleado eliminado");
         }
+        if (!this.isActive) {
+            throw new IllegalStateException("El empleado ya está inactivo");
+        }
         this.isActive = false;
         this.updatedAt = now();
     }
 
     public void delete() {
+        if (this.isDeleted) {
+            throw new IllegalStateException("El empleado ya está eliminado");
+        }
         this.isDeleted = true;
         this.updatedAt = now();
     }
