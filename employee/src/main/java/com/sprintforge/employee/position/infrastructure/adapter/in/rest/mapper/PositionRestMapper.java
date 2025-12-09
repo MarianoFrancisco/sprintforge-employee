@@ -38,8 +38,8 @@ public class PositionRestMapper {
                 position.getId().value(),
                 position.getName().value(),
                 position.getDescription().value(),
-                position.getIsActive(),
-                position.getIsDeleted(),
+                position.isActive(),
+                position.isDeleted(),
                 position.getCreatedAt(),
                 position.getUpdatedAt()
         );

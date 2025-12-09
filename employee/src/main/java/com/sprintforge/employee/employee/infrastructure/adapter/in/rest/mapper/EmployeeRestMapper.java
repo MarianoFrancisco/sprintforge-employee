@@ -43,8 +43,8 @@ public class EmployeeRestMapper {
                 employee.getIgssPercentage().value(),
                 employee.getIrtraPercentage().value(),
                 employee.getProfileImage().value(),
-                employee.getIsActive(),
-                employee.getIsDeleted(),
+                employee.isActive(),
+                employee.isDeleted(),
                 employee.getCreatedAt(),
                 employee.getUpdatedAt(),
                 employee.getPosition()

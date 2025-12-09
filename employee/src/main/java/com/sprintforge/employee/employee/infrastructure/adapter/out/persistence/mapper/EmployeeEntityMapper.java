@@ -24,8 +24,8 @@ public class EmployeeEntityMapper {
                 entity.getIgssPercentage(),
                 entity.getIrtraPercentage(),
                 entity.getProfileImage(),
-                entity.getIsActive(),
-                entity.getIsDeleted(),
+                entity.isActive(),
+                entity.isDeleted(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );
@@ -49,8 +49,8 @@ public class EmployeeEntityMapper {
                 .igssPercentage(domain.getIgssPercentage().value())
                 .irtraPercentage(domain.getIrtraPercentage().value())
                 .profileImage(domain.getProfileImage().value())
-                .isActive(domain.getIsActive())
-                .isDeleted(domain.getIsDeleted())
+                .isActive(domain.isActive())
+                .isDeleted(domain.isDeleted())
                 .createdAt(domain.getCreatedAt())
                 .updatedAt(domain.getUpdatedAt())
                 .build();

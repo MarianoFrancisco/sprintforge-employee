@@ -16,8 +16,8 @@ public class Position {
     private final PositionId id;
     private PositionName name;
     private PositionDescription description;
-    private Boolean isActive;
-    private Boolean isDeleted;
+    private boolean isActive;
+    private boolean isDeleted;
     private final Instant createdAt;
     private Instant updatedAt;
 
@@ -64,6 +64,9 @@ public class Position {
         if (this.isDeleted) {
             throw new IllegalStateException("No se puede activar un puesto eliminado");
         }
+        if (this.isActive) {
+            throw new IllegalStateException("El puesto ya está activo");
+        }
         this.isActive = true;
         this.updatedAt = now();
     }
@@ -72,11 +75,17 @@ public class Position {
         if (this.isDeleted) {
             throw new IllegalStateException("No se puede desactivar un puesto eliminado");
         }
+        if (!this.isActive) {
+            throw new IllegalStateException("El puesto ya está inactivo");
+        }
         this.isActive = false;
         this.updatedAt = now();
     }
 
     public void delete() {
+        if (this.isDeleted) {
+            throw new IllegalStateException("El puesto ya está eliminado");
+        }
         this.isDeleted = true;
         this.updatedAt = now();
     }

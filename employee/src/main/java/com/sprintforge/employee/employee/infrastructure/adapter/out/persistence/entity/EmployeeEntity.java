@@ -73,10 +73,10 @@ public class EmployeeEntity {
     private String profileImage;
 
     @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    private boolean isActive;
 
     @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted;
+    private boolean isDeleted;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
