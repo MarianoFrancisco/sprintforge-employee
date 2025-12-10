@@ -3,7 +3,6 @@ package com.sprintforge.employee.employee.domain.valueobject;
 public enum EmployeeWorkloadType {
     FULL_TIME,
     PART_TIME,
-    HOURLY,
     CONTRACTOR;
 
     public static EmployeeWorkloadType safeValueOf(String value) {
