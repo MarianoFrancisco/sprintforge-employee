@@ -31,7 +31,6 @@ public class UpdateEmployeeDetailImpl implements UpdateEmployeeDetail {
                 command.phoneNumber(),
                 command.birthDate(),
                 command.positionId(),
-                command.workloadType(),
                 command.igssPercentage(),
                 command.irtraPercentage(),
                 null//command.profileImage()

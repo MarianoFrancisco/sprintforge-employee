@@ -1,6 +1,5 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto;
 
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeWorkloadType;
 import jakarta.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,14 +28,6 @@ public record UpdateEmployeeDetailRequestDTO(
 
         @NotNull(message = "El puesto es obligatorio")
         UUID positionId,
-
-        @NotNull(message = "El tipo de jornada es obligatorio")
-        EmployeeWorkloadType workloadType,
-
-        @NotNull(message = "El salario es obligatorio")
-        @Digits(integer = 8, fraction = 2, message = "El salario debe tener como máximo 8 enteros y 2 decimales")
-        @DecimalMin(value = "0.00", message = "El salario no puede ser negativo")
-        BigDecimal salary,
 
         @NotNull(message = "El porcentaje de IGSS es obligatorio")
         @Digits(integer = 3, fraction = 2, message = "El porcentaje de IGSS debe tener como máximo 3 enteros y 2 decimales")

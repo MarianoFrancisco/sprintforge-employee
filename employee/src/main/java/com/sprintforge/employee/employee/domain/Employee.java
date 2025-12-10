@@ -131,7 +131,6 @@ public class Employee {
             String phoneNumber,
             LocalDate birthDate,
             UUID positionId,
-            EmployeeWorkloadType workloadType,
             BigDecimal igssPercentage,
             BigDecimal irtraPercentage,
             String profileImage
@@ -142,7 +141,6 @@ public class Employee {
         this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
         this.birthDate = new EmployeeBirthDate(birthDate);
         this.positionId = new EmployeePositionId(positionId);
-        this.workloadType = workloadType;
         this.igssPercentage = new EmployeePercentage(igssPercentage);
         this.irtraPercentage = new EmployeePercentage(irtraPercentage);
         this.profileImage = new EmployeeProfileImage(profileImage);

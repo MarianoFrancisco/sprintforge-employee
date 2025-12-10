@@ -95,8 +95,6 @@ public class EmployeeRestMapper {
                 request.phoneNumber(),
                 request.birthDate(),
                 request.positionId(),
-                request.workloadType(),
-                request.salary(),
                 request.igssPercentage(),
                 request.irtraPercentage(),
                 request.profileImage()
