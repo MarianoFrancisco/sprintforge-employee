@@ -17,7 +17,7 @@ CREATE TABLE employee
             ON DELETE RESTRICT,
 
     workload_type VARCHAR(20)    NOT NULL CHECK (
-        workload_type IN ('FULL_TIME', 'PART_TIME', 'HOURLY', 'CONTRACTOR')
+        workload_type IN ('FULL_TIME', 'PART_TIME', 'CONTRACTOR')
         ),
 
     salary        NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
