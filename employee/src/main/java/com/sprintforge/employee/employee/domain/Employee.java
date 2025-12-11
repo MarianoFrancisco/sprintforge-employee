@@ -92,6 +92,7 @@ public class Employee {
             String email,
             String firstName,
             String lastName,
+            String fullName,
             String phoneNumber,
             LocalDate birthDate,
             UUID positionId,
@@ -110,7 +111,7 @@ public class Employee {
         this.email = new EmployeeEmail(email);
         this.firstName = new EmployeeFirstName(firstName);
         this.lastName = new EmployeeLastName(lastName);
-        this.fullName = new EmployeeFullName(this.firstName, this.lastName);
+        this.fullName = new EmployeeFullName(fullName);
         this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
         this.birthDate = new EmployeeBirthDate(birthDate);
         this.positionId = new EmployeePositionId(positionId);
