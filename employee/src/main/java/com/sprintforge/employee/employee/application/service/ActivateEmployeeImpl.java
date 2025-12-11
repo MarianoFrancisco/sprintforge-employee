@@ -22,7 +22,7 @@ public class ActivateEmployeeImpl implements ActivateEmployee {
     public Employee handle(ActivateEmployeeCommand command) {
         Employee employee = findEmployeeById.findById(command.id())
                 .orElseThrow(() ->
-                        new EmployeeNotFoundException("identificador", command.id().toString())
+                        EmployeeNotFoundException.byId(command.id())
                 );
         employee.activate();
         saveEmployee.save(employee);

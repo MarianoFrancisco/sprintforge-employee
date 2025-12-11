@@ -20,7 +20,7 @@ public class GetEmployeeByEmailImpl implements GetEmployeeByEmail {
     public Employee handle(GetEmployeeByEmailQuery query) {
         return findEmployeeByEmail.findByEmail(query.email())
                 .orElseThrow(
-                        () -> new EmployeeNotFoundException("correo", query.email())
+                        () -> EmployeeNotFoundException.byEmail(query.email())
                 );
     }
 }

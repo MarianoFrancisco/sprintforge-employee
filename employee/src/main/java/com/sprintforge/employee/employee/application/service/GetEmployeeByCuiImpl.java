@@ -20,7 +20,7 @@ public class GetEmployeeByCuiImpl implements GetEmployeeByCui {
     public Employee handle(GetEmployeeByCuiQuery query) {
         return findEmployeeByCui.findByCui(query.cui())
                 .orElseThrow(
-                        () -> new EmployeeNotFoundException("CUI", query.cui())
+                        () -> EmployeeNotFoundException.byCui(query.cui())
                 );
     }
 }
