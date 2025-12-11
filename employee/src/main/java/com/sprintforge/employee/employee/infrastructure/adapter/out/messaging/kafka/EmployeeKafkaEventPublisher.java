@@ -30,6 +30,6 @@ public class EmployeeKafkaEventPublisher implements EmployeeEventPublisher {
 
         kafkaTemplate.send(topic, key, message);
 
-        log.info("Published EmployeeCreated event. topic={}, key={}", topic, key);
+        log.debug("Published EmployeeCreated event. topic={}, key={}", topic, key);
     }
 }
