@@ -1,0 +1,19 @@
+@host = http://localhost
+@port = 8002
+@basePath = /api/v1
+@employeePath = {{basePath}}/employee
+@positionPath = {{basePath}}/position
+@employeeLink = {{host}}:{{port}}{{employeePath}}
+@positionLink = {{host}}:{{port}}{{positionPath}}
+
+### POST position
+POST {{positionLink}}
+Content-Type: application/json
+
+{
+  "name": "Software Engineer",
+  "description": "Engineering"
+}
+
+### GET positions
+GET {{positionLink}}

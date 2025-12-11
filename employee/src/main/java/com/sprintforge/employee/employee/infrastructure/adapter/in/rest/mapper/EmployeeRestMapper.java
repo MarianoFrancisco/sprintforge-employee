@@ -12,6 +12,7 @@ import com.sprintforge.employee.employee.application.port.in.command.UpdateEmplo
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;
+import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.UpdateEmployeeDetailRequestDTO;
 import lombok.experimental.UtilityClass;
 
 import java.util.UUID;
@@ -86,7 +87,7 @@ public class EmployeeRestMapper {
 
     public UpdateEmployeeDetailCommand toUpdateCommand(
             UUID id,
-            HireEmployeeRequestDTO request
+            UpdateEmployeeDetailRequestDTO request
     ) {
         return new UpdateEmployeeDetailCommand(
                 id,

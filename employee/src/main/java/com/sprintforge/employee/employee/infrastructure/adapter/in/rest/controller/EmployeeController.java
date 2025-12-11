@@ -12,6 +12,7 @@ import com.sprintforge.employee.employee.application.port.in.command.UpdateEmplo
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;
+import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.UpdateEmployeeDetailRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper.EmployeeRestMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -92,7 +93,7 @@ public class EmployeeController {
     @PatchMapping("/{id}")
     public EmployeeResponseDTO updateDetails(
             @PathVariable UUID id,
-            @ModelAttribute HireEmployeeRequestDTO dto
+            @ModelAttribute UpdateEmployeeDetailRequestDTO dto
     ) {
         Employee updated = updateEmployeeDetail.handle(
                 EmployeeRestMapper.toUpdateCommand(
