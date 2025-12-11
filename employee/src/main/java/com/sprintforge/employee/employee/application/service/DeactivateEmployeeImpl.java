@@ -22,7 +22,7 @@ public class DeactivateEmployeeImpl implements DeactivateEmployee {
     public Employee handle(DeactivateEmployeeCommand command) {
         Employee employee = findEmployeeById.findById(command.id())
                 .orElseThrow(() ->
-                        new EmployeeNotFoundException("identificador", command.id().toString())
+                        EmployeeNotFoundException.byId(command.id())
                 );
         employee.deactivate();
         Employee employeeSaved = saveEmployee.save(employee);

@@ -22,7 +22,7 @@ public class DeleteEmployeeImpl implements DeleteEmployee {
     public void handle(DeleteEmployeeCommand command) {
         Employee employee = findEmployeeById.findById(command.id())
                 .orElseThrow(() ->
-                        new EmployeeNotFoundException("identificador", command.id().toString())
+                        EmployeeNotFoundException.byId(command.id())
                 );
         employee.delete();
         saveEmployee.save(employee);

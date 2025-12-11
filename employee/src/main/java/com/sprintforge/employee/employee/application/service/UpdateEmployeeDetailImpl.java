@@ -22,7 +22,7 @@ public class UpdateEmployeeDetailImpl implements UpdateEmployeeDetail {
     public Employee handle(UpdateEmployeeDetailCommand command) {
         Employee employee = findById.findById(command.id())
                 .orElseThrow(() ->
-                        new EmployeeNotFoundException("identificador", command.id().toString())
+                        EmployeeNotFoundException.byId(command.id())
                 );
 
         employee.updateDetails(

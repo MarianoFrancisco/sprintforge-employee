@@ -20,7 +20,7 @@ public class GetEmployeeByIdImpl implements GetEmployeeById {
     public Employee handle(GetEmployeeByIdQuery query) {
         return findEmployeeById.findById(query.id())
                 .orElseThrow(
-                        () -> new EmployeeNotFoundException("identificador", query.id().toString())
+                        () -> EmployeeNotFoundException.byId(query.id())
                 );
     }
 }
