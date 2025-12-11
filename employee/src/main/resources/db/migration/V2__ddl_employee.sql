@@ -17,12 +17,12 @@ CREATE TABLE employee
             ON DELETE RESTRICT,
 
     workload_type VARCHAR(20)    NOT NULL CHECK (
-        workload_type IN ('FULL_TIME', 'PART_TIME', 'CONTRACTOR')
+        workload_type IN ('FULL_TIME', 'PART_TIME')
         ),
 
     salary        NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
-    igss_percent  NUMERIC(5, 2)  NOT NULL DEFAULT 0.00,
-    irtra_percent NUMERIC(5, 2)  NOT NULL DEFAULT 0.00,
+    igss_percentage  NUMERIC(5, 2)  NOT NULL DEFAULT 0.00,
+    irtra_percentage NUMERIC(5, 2)  NOT NULL DEFAULT 0.00,
 
     profile_image VARCHAR(300),
 
