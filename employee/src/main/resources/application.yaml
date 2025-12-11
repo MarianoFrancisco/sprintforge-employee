@@ -1,6 +1,8 @@
 server:
   port: ${SERVER_PORT:8002}
   shutdown: graceful
+  tomcat:
+    max-part-count: 20
 
 spring:
   config:
@@ -31,6 +33,12 @@ spring:
       hibernate.jdbc.time_zone: UTC
       hibernate.format_sql: true
       hibernate.jdbc.lob.non_contextual_creation: true
+  
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: ${MAX_FILE_SIZE:10MB}
+      max-request-size: ${MAX_REQUEST_SIZE:10MB}
 
 logging:
   level:
