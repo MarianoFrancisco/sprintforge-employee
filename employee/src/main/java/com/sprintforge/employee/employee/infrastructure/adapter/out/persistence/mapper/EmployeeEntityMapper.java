@@ -16,6 +16,7 @@ public class EmployeeEntityMapper {
                 entity.getEmail(),
                 entity.getFirstName(),
                 entity.getLastName(),
+                entity.getFullName(),
                 entity.getPhoneNumber(),
                 entity.getBirthDate(),
                 entity.getPositionId(),
@@ -41,6 +42,7 @@ public class EmployeeEntityMapper {
                 .email(domain.getEmail().value())
                 .firstName(domain.getFirstName().value())
                 .lastName(domain.getLastName().value())
+                .fullName(domain.getFullName().value())
                 .phoneNumber(domain.getPhoneNumber().value())
                 .birthDate(domain.getBirthDate().value())
                 .positionId(domain.getPositionId().value())
