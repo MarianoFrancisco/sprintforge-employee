@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EmployeeKafkaEventPublisher implements EmployeeEventPublisher {
 
-    private final KafkaTemplate<String, EmployeeCreatedKafkaMessage> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
     private final KafkaTopicsProperties topics;
 
     @Override
@@ -25,7 +25,7 @@ public class EmployeeKafkaEventPublisher implements EmployeeEventPublisher {
             EmployeeCreatedIntegrationEvent event
     ) {
         EmployeeCreatedKafkaMessage message = EmployeeKafkaEventMapper.toMessage(event);
-        String topic = topics.employeeCreated();
+        String topic = topics.getEmployeeCreated();
         String key = message.employeeId().toString();
 
         kafkaTemplate.send(topic, key, message);

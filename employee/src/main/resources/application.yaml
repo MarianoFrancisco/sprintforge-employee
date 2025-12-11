@@ -42,7 +42,7 @@ spring:
       auto-offset-reset: latest
       enable-auto-commit: false
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         spring.json.trusted.packages: "com.sprintforge.employee.*"
         spring.json.use.type.headers: false
@@ -61,6 +61,9 @@ spring:
 
     topics:
       employee-created: ${KAFKA_TOPIC_EMPLOYEE_CREATED:employee.created}
+
+    groups:
+      default-group: ${spring.kafka.consumer.group-id}
 
   servlet:
     multipart:
