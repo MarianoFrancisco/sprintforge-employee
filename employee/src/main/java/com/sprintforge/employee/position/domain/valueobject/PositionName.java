@@ -1,6 +1,6 @@
 package com.sprintforge.employee.position.domain.valueobject;
 
-import com.sprintforge.employee.common.domain.exception.ValidationException;
+import com.sprintforge.common.domain.exception.ValidationException;
 
 public record PositionName(String value) {
     public PositionName {

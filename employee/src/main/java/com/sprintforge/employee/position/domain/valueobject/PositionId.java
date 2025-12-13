@@ -2,7 +2,7 @@ package com.sprintforge.employee.position.domain.valueobject;
 
 import java.util.UUID;
 
-import com.sprintforge.employee.common.domain.exception.ValidationException;
+import com.sprintforge.common.domain.exception.ValidationException;
 
 public record PositionId(UUID value) {
     public PositionId {

@@ -1,6 +1,6 @@
 package com.sprintforge.employee.employee.application.exception;
 
-import com.sprintforge.employee.common.application.exception.EntityNotFoundException;
+import com.sprintforge.common.application.exception.EntityNotFoundException;
 
 import java.util.UUID;
 

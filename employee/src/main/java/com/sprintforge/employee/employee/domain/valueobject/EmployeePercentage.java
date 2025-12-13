@@ -2,7 +2,7 @@ package com.sprintforge.employee.employee.domain.valueobject;
 
 import java.math.BigDecimal;
 
-import com.sprintforge.employee.common.domain.exception.ValidationException;
+import com.sprintforge.common.domain.exception.ValidationException;
 
 public record EmployeePercentage(BigDecimal value) {
     public EmployeePercentage {
