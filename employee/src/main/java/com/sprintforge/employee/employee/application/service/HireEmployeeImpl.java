@@ -12,6 +12,10 @@ import com.sprintforge.employee.employee.application.port.out.persistence.SaveEm
 import com.sprintforge.employee.employee.application.port.out.persistence.SaveEmploymentHistory;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.domain.EmploymentHistory;
+import com.sprintforge.employee.position.application.exception.PositionNotFoundException;
+import com.sprintforge.employee.position.application.port.out.persistence.FindPositionById;
+import com.sprintforge.employee.position.domain.Position;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,7 @@ public class HireEmployeeImpl implements HireEmployee {
 
     private final ExistsEmployeeByCui existsEmployeeByCui;
     private final ExistsEmployeeByEmail existsEmployeeByEmail;
+    private final FindPositionById findPositionById;
     private final SaveEmployee saveEmployee;
     private final SaveEmploymentHistory saveEmploymentHistory;
     private final EmployeeEventPublisher employeeEventPublisher;
@@ -35,7 +40,10 @@ public class HireEmployeeImpl implements HireEmployee {
         if (existsEmployeeByEmail.existsByEmail(command.email())) {
             throw DuplicateEmployeeException.byEmail(command.email());
         }
-        Employee employee = EmployeeMapper.toDomain(command);
+
+        Position position = findPositionById.findById(command.positionId())
+                .orElseThrow(() -> new PositionNotFoundException(command.positionId().toString()));
+        Employee employee = EmployeeMapper.toDomain(command, position);
         Employee employeeSaved = saveEmployee.save(employee);
         EmploymentHistory employmentHistory = EmploymentHistoryMapper.toDomain(command, employeeSaved);
         saveEmploymentHistory.save(employmentHistory);

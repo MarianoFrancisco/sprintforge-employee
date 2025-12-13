@@ -3,11 +3,13 @@ package com.sprintforge.employee.employee.application.mapper;
 import com.sprintforge.employee.employee.application.port.in.command.HireEmployeeCommand;
 import com.sprintforge.employee.employee.application.port.out.event.EmployeeCreatedIntegrationEvent;
 import com.sprintforge.employee.employee.domain.Employee;
+import com.sprintforge.employee.position.domain.Position;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class EmployeeMapper {
-    public Employee toDomain(HireEmployeeCommand command) {
+    public Employee toDomain(HireEmployeeCommand command, Position position) {
         return new Employee(
                 command.cui(),
                 command.email(),
@@ -15,7 +17,7 @@ public class EmployeeMapper {
                 command.lastName(),
                 command.phoneNumber(),
                 command.birthDate(),
-                command.positionId(),
+                position,
                 command.workloadType(),
                 command.salary(),
                 command.igssPercentage(),
