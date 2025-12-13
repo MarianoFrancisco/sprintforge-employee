@@ -1,15 +1,17 @@
 package com.sprintforge.employee.employee.domain.valueobject;
 
+import com.sprintforge.employee.common.domain.exception.ValidationException;
+
 public record EmployeeCui(String value) {
     public EmployeeCui {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("El CUI no puede estar vacío");
+            throw new ValidationException("El CUI no puede estar vacío");
         }
         if (value.length() != 13) {
-            throw new IllegalArgumentException("El CUI debe tener exactamente 13 caracteres");
+            throw new ValidationException("El CUI debe tener exactamente 13 caracteres");
         }
         if (!value.matches("\\d+")) {
-            throw new IllegalArgumentException("El CUI solo debe contener números");
+            throw new ValidationException("El CUI solo debe contener números");
         }
     }
 }

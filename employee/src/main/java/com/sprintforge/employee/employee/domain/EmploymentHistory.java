@@ -1,6 +1,7 @@
 package com.sprintforge.employee.employee.domain;
 
 import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryId;
+import com.sprintforge.employee.common.domain.exception.ValidationException;
 import com.sprintforge.employee.employee.domain.valueobject.EmployeeId;
 import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryType;
 import com.sprintforge.employee.employee.domain.valueobject.EmployeeSalary;
@@ -84,14 +85,14 @@ public class EmploymentHistory {
     private LocalDate validateStartDate(LocalDate startDate) {
         Objects.requireNonNull(startDate, "La fecha de inicio no puede estar vacía");
         if (startDate.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException("La fecha de inicio no puede ser futura");
+            throw new ValidationException("La fecha de inicio no puede ser futura");
         }
         return startDate;
     }
 
     private void validateEndDate(LocalDate startDate, LocalDate endDate) {
         if (endDate != null && endDate.isBefore(startDate)) {
-            throw new IllegalArgumentException(
+            throw new ValidationException(
                     "La fecha de fin no puede ser anterior a la fecha de inicio"
             );
         }
