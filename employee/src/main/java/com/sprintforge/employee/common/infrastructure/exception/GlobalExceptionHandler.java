@@ -1,7 +1,10 @@
 package com.sprintforge.employee.common.infrastructure.exception;
 
+import com.sprintforge.employee.common.application.exception.BusinessException;
 import com.sprintforge.employee.common.application.exception.DuplicateEntityException;
 import com.sprintforge.employee.common.application.exception.EntityNotFoundException;
+import com.sprintforge.employee.common.domain.exception.DomainException;
+
 import jakarta.validation.ConstraintViolationException;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +31,15 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(BusinessException.class)
+    ProblemDetail handleBusinessException(BusinessException e) {
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(CONFLICT, e.getMessage());
+        pd.setTitle("Business Error");
+        pd.setProperty("error_category", "Business Rule");
+        pd.setProperty("timestamp", Instant.now());
+        return pd;
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     ProblemDetail handleEntityNotFound(EntityNotFoundException e) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(NOT_FOUND, e.getMessage());
@@ -46,14 +58,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return pd;
     }
 
+    @ExceptionHandler(DomainException.class)
+    ProblemDetail handleDomainException(DomainException e) {
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(CONFLICT, e.getMessage());
+        pd.setTitle("Domain Error");
+        pd.setProperty("error_category", "Domain");
+        pd.setProperty("timestamp", Instant.now());
+        return pd;
+    }
+
     @NullMarked
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
             HttpHeaders headers,
             HttpStatusCode status,
-            WebRequest request
-    ) {
+            WebRequest request) {
 
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {

@@ -12,7 +12,6 @@ public record UpdateEmployeeDetailCommand(
         String lastName,
         String phoneNumber,
         LocalDate birthDate,
-        UUID positionId,
         BigDecimal igssPercentage,
         BigDecimal irtraPercentage,
         MultipartFile profileImage

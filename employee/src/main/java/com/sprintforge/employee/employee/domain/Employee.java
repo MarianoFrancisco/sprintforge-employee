@@ -1,26 +1,15 @@
 package com.sprintforge.employee.employee.domain;
 
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeId;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeCui;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeEmail;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeFirstName;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeLastName;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeFullName;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeePhoneNumber;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeBirthDate;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeePositionId;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeWorkloadType;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeSalary;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeePercentage;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeeProfileImage;
-import com.sprintforge.employee.employee.domain.valueobject.EmployeePosition;
+import com.sprintforge.employee.common.domain.exception.ValidationException;
+import com.sprintforge.employee.employee.domain.valueobject.*;
+import com.sprintforge.employee.position.domain.Position;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.UUID;
 
 import static java.time.Instant.now;
@@ -32,12 +21,12 @@ public class Employee {
     private final EmployeeId id;
     private final EmployeeCui cui;
     private final EmployeeEmail email;
+    private final Instant createdAt;
     private EmployeeFirstName firstName;
     private EmployeeLastName lastName;
     private EmployeeFullName fullName;
     private EmployeePhoneNumber phoneNumber;
     private EmployeeBirthDate birthDate;
-    private EmployeePositionId positionId;
     private EmployeeWorkloadType workloadType;
     private EmployeeSalary salary;
     private EmployeePercentage igssPercentage;
@@ -45,10 +34,8 @@ public class Employee {
     private EmployeeProfileImage profileImage;
     private boolean isActive;
     private boolean isDeleted;
-    private final Instant createdAt;
     private Instant updatedAt;
-    @Setter
-    private EmployeePosition position;
+    private Position position;
 
     public Employee(
             String cui,
@@ -57,7 +44,7 @@ public class Employee {
             String lastName,
             String phoneNumber,
             LocalDate birthDate,
-            UUID positionId,
+            Position position,
             EmployeeWorkloadType workloadType,
             BigDecimal salary,
             BigDecimal igssPercentage,
@@ -74,7 +61,7 @@ public class Employee {
         this.fullName = new EmployeeFullName(this.firstName, this.lastName);
         this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
         this.birthDate = new EmployeeBirthDate(birthDate);
-        this.positionId = new EmployeePositionId(positionId);
+        this.position = Objects.requireNonNull(position, "El cargo no puede ser nulo");
         this.workloadType = workloadType;
         this.salary = new EmployeeSalary(salary);
         this.igssPercentage = new EmployeePercentage(igssPercentage);
@@ -95,7 +82,7 @@ public class Employee {
             String fullName,
             String phoneNumber,
             LocalDate birthDate,
-            UUID positionId,
+            Position position,
             String workloadType,
             BigDecimal salary,
             BigDecimal igssPercentage,
@@ -114,7 +101,7 @@ public class Employee {
         this.fullName = new EmployeeFullName(fullName);
         this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
         this.birthDate = new EmployeeBirthDate(birthDate);
-        this.positionId = new EmployeePositionId(positionId);
+        this.position =  Objects.requireNonNull(position, "El cargo no puede ser nulo");
         this.workloadType = EmployeeWorkloadType.safeValueOf(workloadType);
         this.salary = new EmployeeSalary(salary);
         this.igssPercentage = new EmployeePercentage(igssPercentage);
@@ -131,7 +118,6 @@ public class Employee {
             String lastName,
             String phoneNumber,
             LocalDate birthDate,
-            UUID positionId,
             BigDecimal igssPercentage,
             BigDecimal irtraPercentage,
             String profileImage
@@ -141,7 +127,6 @@ public class Employee {
         this.fullName = new EmployeeFullName(this.firstName, this.lastName);
         this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
         this.birthDate = new EmployeeBirthDate(birthDate);
-        this.positionId = new EmployeePositionId(positionId);
         this.igssPercentage = new EmployeePercentage(igssPercentage);
         this.irtraPercentage = new EmployeePercentage(irtraPercentage);
         this.profileImage = new EmployeeProfileImage(profileImage);
@@ -150,10 +135,10 @@ public class Employee {
 
     public void activate() {
         if (this.isDeleted) {
-            throw new IllegalStateException("No se puede activar un empleado eliminado");
+            throw new ValidationException("No se puede activar un empleado eliminado");
         }
         if (this.isActive) {
-            throw new IllegalStateException("El empleado ya está activo");
+            throw new ValidationException("El empleado ya está activo");
         }
         this.isActive = true;
         this.updatedAt = now();
@@ -161,10 +146,10 @@ public class Employee {
 
     public void deactivate() {
         if (this.isDeleted) {
-            throw new IllegalStateException("No se puede desactivar un empleado eliminado");
+            throw new ValidationException("No se puede desactivar un empleado eliminado");
         }
         if (!this.isActive) {
-            throw new IllegalStateException("El empleado ya está inactivo");
+            throw new ValidationException("El empleado ya está inactivo");
         }
         this.isActive = false;
         this.updatedAt = now();
@@ -172,7 +157,7 @@ public class Employee {
 
     public void delete() {
         if (this.isDeleted) {
-            throw new IllegalStateException("El empleado ya está eliminado");
+            throw new ValidationException("El empleado ya está eliminado");
         }
         this.isDeleted = true;
         this.updatedAt = now();

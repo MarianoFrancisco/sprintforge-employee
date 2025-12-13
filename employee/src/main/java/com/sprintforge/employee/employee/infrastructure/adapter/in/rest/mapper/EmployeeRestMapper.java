@@ -10,6 +10,7 @@ import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeBy
 import com.sprintforge.employee.employee.application.port.in.command.HireEmployeeCommand;
 import com.sprintforge.employee.employee.application.port.in.command.UpdateEmployeeDetailCommand;
 import com.sprintforge.employee.employee.domain.Employee;
+import com.sprintforge.employee.employee.domain.valueobject.EmployeePosition;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.UpdateEmployeeDetailRequestDTO;
@@ -38,7 +39,6 @@ public class EmployeeRestMapper {
                 employee.getFullName().value(),
                 employee.getPhoneNumber().value(),
                 employee.getBirthDate().value(),
-                employee.getPositionId().value(),
                 employee.getWorkloadType(),
                 employee.getSalary().value(),
                 employee.getIgssPercentage().value(),
@@ -48,7 +48,11 @@ public class EmployeeRestMapper {
                 employee.isDeleted(),
                 employee.getCreatedAt(),
                 employee.getUpdatedAt(),
-                employee.getPosition()
+                new EmployeePosition(
+                        employee.getPosition().getId().value(),
+                        employee.getPosition().getName().value(),
+                        employee.getPosition().getDescription().value()
+                )
         );
     }
 
@@ -95,7 +99,6 @@ public class EmployeeRestMapper {
                 request.lastName(),
                 request.phoneNumber(),
                 request.birthDate(),
-                request.positionId(),
                 request.igssPercentage(),
                 request.irtraPercentage(),
                 request.profileImage()

@@ -25,9 +25,9 @@ public class PositionEntityMapper {
 
     public PositionEntity toEntity(Position domain) {
         if (domain == null) {
+            System.out.println("PositionEntityMapper.toEntity: domain is null");
             return null;
         }
-
         return PositionEntity.builder()
                 .id(domain.getId().value())
                 .name(domain.getName().value())

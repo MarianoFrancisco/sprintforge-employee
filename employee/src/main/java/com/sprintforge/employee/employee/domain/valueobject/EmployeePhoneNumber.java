@@ -1,12 +1,14 @@
 package com.sprintforge.employee.employee.domain.valueobject;
 
+import com.sprintforge.employee.common.domain.exception.ValidationException;
+
 public record EmployeePhoneNumber(String value) {
     public EmployeePhoneNumber {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException("El número de teléfono no puede estar vacío");
+            throw new ValidationException("El número de teléfono no puede estar vacío");
         }
         if (!value.matches("\\d{8}")) {
-            throw new IllegalArgumentException("El número de teléfono debe tener 8 dígitos");
+            throw new ValidationException("El número de teléfono debe tener 8 dígitos");
         }
     }
 }

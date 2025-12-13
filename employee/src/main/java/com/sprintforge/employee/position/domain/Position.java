@@ -1,5 +1,6 @@
 package com.sprintforge.employee.position.domain;
 
+import com.sprintforge.employee.common.domain.exception.ValidationException;
 import com.sprintforge.employee.position.domain.valueobject.PositionDescription;
 import com.sprintforge.employee.position.domain.valueobject.PositionId;
 import com.sprintforge.employee.position.domain.valueobject.PositionName;
@@ -62,10 +63,10 @@ public class Position {
 
     public void activate() {
         if (this.isDeleted) {
-            throw new IllegalStateException("No se puede activar un puesto eliminado");
+            throw new ValidationException("No se puede activar un puesto eliminado");
         }
         if (this.isActive) {
-            throw new IllegalStateException("El puesto ya está activo");
+            throw new ValidationException("El puesto ya está activo");
         }
         this.isActive = true;
         this.updatedAt = now();
@@ -73,10 +74,10 @@ public class Position {
 
     public void deactivate() {
         if (this.isDeleted) {
-            throw new IllegalStateException("No se puede desactivar un puesto eliminado");
+            throw new ValidationException("No se puede desactivar un puesto eliminado");
         }
         if (!this.isActive) {
-            throw new IllegalStateException("El puesto ya está inactivo");
+            throw new ValidationException("El puesto ya está inactivo");
         }
         this.isActive = false;
         this.updatedAt = now();
@@ -84,7 +85,7 @@ public class Position {
 
     public void delete() {
         if (this.isDeleted) {
-            throw new IllegalStateException("El puesto ya está eliminado");
+            throw new ValidationException("El puesto ya está eliminado");
         }
         this.isDeleted = true;
         this.updatedAt = now();
