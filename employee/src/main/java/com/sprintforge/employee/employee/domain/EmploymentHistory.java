@@ -1,7 +1,7 @@
 package com.sprintforge.employee.employee.domain;
 
 import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryId;
-import com.sprintforge.employee.common.domain.exception.ValidationException;
+import com.sprintforge.common.domain.exception.ValidationException;
 import com.sprintforge.employee.employee.domain.valueobject.EmployeeId;
 import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryType;
 import com.sprintforge.employee.employee.domain.valueobject.EmployeeSalary;

@@ -1,6 +1,6 @@
 package com.sprintforge.employee.position.domain;
 
-import com.sprintforge.employee.common.domain.exception.ValidationException;
+import com.sprintforge.common.domain.exception.ValidationException;
 import com.sprintforge.employee.position.domain.valueobject.PositionDescription;
 import com.sprintforge.employee.position.domain.valueobject.PositionId;
 import com.sprintforge.employee.position.domain.valueobject.PositionName;

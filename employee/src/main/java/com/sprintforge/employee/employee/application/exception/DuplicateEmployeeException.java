@@ -1,6 +1,6 @@
 package com.sprintforge.employee.employee.application.exception;
 
-import com.sprintforge.employee.common.application.exception.DuplicateEntityException;
+import com.sprintforge.common.application.exception.DuplicateEntityException;
 
 public class DuplicateEmployeeException extends DuplicateEntityException {
 
