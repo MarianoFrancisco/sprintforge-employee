@@ -1,6 +1,6 @@
 package com.sprintforge.employee.common.application.exception;
 
-public class EntityNotFoundException extends RuntimeException {
+public class EntityNotFoundException extends BusinessException {
     public EntityNotFoundException() {
         super("La entidad solicitada no fue encontrada.");
     }
