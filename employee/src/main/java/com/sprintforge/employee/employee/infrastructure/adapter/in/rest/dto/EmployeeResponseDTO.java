@@ -20,7 +20,6 @@ public record EmployeeResponseDTO(
         String phoneNumber,
         LocalDate birthDate,
 
-        UUID positionId,
         EmployeeWorkloadType workloadType,
 
         BigDecimal salary,

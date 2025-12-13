@@ -2,6 +2,8 @@ package com.sprintforge.employee.employee.infrastructure.adapter.out.persistence
 
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.entity.EmployeeEntity;
+import com.sprintforge.employee.position.infrastructure.adapter.out.persistence.mapper.PositionEntityMapper;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -10,7 +12,7 @@ public class EmployeeEntityMapper {
         if (entity == null) {
             return null;
         }
-        return new Employee(
+        Employee employee = new Employee(
                 entity.getId(),
                 entity.getCui(),
                 entity.getEmail(),
@@ -19,7 +21,7 @@ public class EmployeeEntityMapper {
                 entity.getFullName(),
                 entity.getPhoneNumber(),
                 entity.getBirthDate(),
-                entity.getPositionId(),
+                PositionEntityMapper.toDomain(entity.getPosition()),
                 entity.getWorkloadType().name(),
                 entity.getSalary(),
                 entity.getIgssPercentage(),
@@ -30,6 +32,7 @@ public class EmployeeEntityMapper {
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );
+        return employee;
     }
 
     public EmployeeEntity toEntity(Employee domain) {
@@ -45,7 +48,7 @@ public class EmployeeEntityMapper {
                 .fullName(domain.getFullName().value())
                 .phoneNumber(domain.getPhoneNumber().value())
                 .birthDate(domain.getBirthDate().value())
-                .positionId(domain.getPositionId().value())
+                .position(PositionEntityMapper.toEntity(domain.getPosition()))
                 .workloadType(domain.getWorkloadType())
                 .salary(domain.getSalary().value())
                 .igssPercentage(domain.getIgssPercentage().value())
