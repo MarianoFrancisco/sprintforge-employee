@@ -39,7 +39,7 @@ public record HireEmployeeRequestDTO(
         @Past(message = "La fecha de nacimiento debe ser una fecha en el pasado")
         LocalDate birthDate,
 
-        @NotNull(message = "El puesto es obligatorio")
+        @NotNull(message = "El cargo es obligatorio")
         UUID positionId,
 
         @NotNull(message = "El tipo de jornada es obligatorio")

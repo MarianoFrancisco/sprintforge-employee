@@ -14,6 +14,7 @@ import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.Empl
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.UpdateEmployeeDetailRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper.EmployeeRestMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,7 +83,7 @@ public class EmployeeController {
     @PostMapping
     @ResponseStatus(CREATED)
     public EmployeeResponseDTO hire(
-            @ModelAttribute HireEmployeeRequestDTO dto
+            @ModelAttribute @Valid HireEmployeeRequestDTO dto
     ) {
         Employee saved = hireEmployee.handle(
                 EmployeeRestMapper.toHireCommand(dto)

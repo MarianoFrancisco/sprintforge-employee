@@ -7,7 +7,7 @@ import com.sprintforge.common.domain.exception.ValidationException;
 public record EmployeePositionId(UUID value) {
     public EmployeePositionId {
         if (value == null) {
-            throw new ValidationException("El empleado debe tener un puesto asignado");
+            throw new ValidationException("El empleado debe tener un cargo asignado");
         }
     }
 }

@@ -63,10 +63,10 @@ public class Position {
 
     public void activate() {
         if (this.isDeleted) {
-            throw new ValidationException("No se puede activar un puesto eliminado");
+            throw new ValidationException("No se puede activar un cargo eliminado");
         }
         if (this.isActive) {
-            throw new ValidationException("El puesto ya está activo");
+            throw new ValidationException("El cargo ya está activo");
         }
         this.isActive = true;
         this.updatedAt = now();
@@ -74,10 +74,10 @@ public class Position {
 
     public void deactivate() {
         if (this.isDeleted) {
-            throw new ValidationException("No se puede desactivar un puesto eliminado");
+            throw new ValidationException("No se puede desactivar un cargo eliminado");
         }
         if (!this.isActive) {
-            throw new ValidationException("El puesto ya está inactivo");
+            throw new ValidationException("El cargo ya está inactivo");
         }
         this.isActive = false;
         this.updatedAt = now();
@@ -85,7 +85,7 @@ public class Position {
 
     public void delete() {
         if (this.isDeleted) {
-            throw new ValidationException("El puesto ya está eliminado");
+            throw new ValidationException("El cargo ya está eliminado");
         }
         this.isDeleted = true;
         this.updatedAt = now();
