@@ -5,6 +5,8 @@ import com.sprintforge.employee.position.infrastructure.adapter.out.persistence.
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 
@@ -42,11 +44,12 @@ public class EmployeeEntity {
     private EmployeeWorkloadType workloadType;
 
     private BigDecimal salary;
-    private BigDecimal igssPercentage;
-    private BigDecimal irtraPercentage;
     private String profileImage;
     private boolean isActive;
-    private boolean isDeleted;
+
+    @CreationTimestamp
     private Instant createdAt;
+    
+    @CreationTimestamp
     private Instant updatedAt;
 }

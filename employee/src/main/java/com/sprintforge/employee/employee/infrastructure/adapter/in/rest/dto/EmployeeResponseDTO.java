@@ -5,7 +5,6 @@ import com.sprintforge.employee.employee.domain.valueobject.EmployeeWorkloadType
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Instant;
 import java.util.UUID;
 
 public record EmployeeResponseDTO(
@@ -23,16 +22,10 @@ public record EmployeeResponseDTO(
         EmployeeWorkloadType workloadType,
 
         BigDecimal salary,
-        BigDecimal igssPercentage,
-        BigDecimal irtraPercentage,
 
         String profileImage,
 
         boolean isActive,
-        boolean isDeleted,
-
-        Instant createdAt,
-        Instant updatedAt,
 
         EmployeePosition position
 ) {

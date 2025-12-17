@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class EmployeeMapper {
     public Employee toDomain(HireEmployeeCommand command, Position position) {
-        return new Employee(
+        return Employee.create(
                 command.cui(),
                 command.email(),
                 command.firstName(),
@@ -20,9 +20,7 @@ public class EmployeeMapper {
                 position,
                 command.workloadType(),
                 command.salary(),
-                command.igssPercentage(),
-                command.irtraPercentage(),
-                null//command.profileImage()
+                null
         );
     }
 
@@ -33,7 +31,7 @@ public class EmployeeMapper {
                 employee.getEmail().value(),
                 employee.getFirstName().value(),
                 employee.getLastName().value(),
-                employee.getFullName().value()
+                employee.getFullName()
         );
     }
 

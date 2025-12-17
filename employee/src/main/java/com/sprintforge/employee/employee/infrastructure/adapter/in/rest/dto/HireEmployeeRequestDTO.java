@@ -50,21 +50,10 @@ public record HireEmployeeRequestDTO(
         @DecimalMin(value = "0.00", message = "El salario no puede ser negativo")
         BigDecimal salary,
 
-        @NotNull(message = "El porcentaje de IGSS es obligatorio")
-        @Digits(integer = 3, fraction = 2, message = "El porcentaje de IGSS debe tener como máximo 3 enteros y 2 decimales")
-        @DecimalMin(value = "0.00", message = "El porcentaje de IGSS no puede ser negativo")
-        @DecimalMax(value = "100.00", message = "El porcentaje de IGSS no puede ser mayor a 100%")
-        BigDecimal igssPercentage,
-
-        @NotNull(message = "El porcentaje de IRTRA es obligatorio")
-        @Digits(integer = 3, fraction = 2, message = "El porcentaje de IRTRA debe tener como máximo 3 enteros y 2 decimales")
-        @DecimalMin(value = "0.00", message = "El porcentaje de IRTRA no puede ser negativo")
-        @DecimalMax(value = "100.00", message = "El porcentaje de IRTRA no puede ser mayor a 100%")
-        BigDecimal irtraPercentage,
-
         MultipartFile profileImage,
 
         @NotNull(message = "La fecha de inicio es obligatoria")
+        @PastOrPresent(message = "La fecha de inicio no puede ser futura")
         LocalDate startDate,
 
         @Size(max = 255, message = "Las notas no deben superar los 255 caracteres")

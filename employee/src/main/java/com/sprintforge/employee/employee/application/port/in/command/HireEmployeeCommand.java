@@ -17,8 +17,6 @@ public record HireEmployeeCommand(
         UUID positionId,
         EmployeeWorkloadType workloadType,
         BigDecimal salary,
-        BigDecimal igssPercentage,
-        BigDecimal irtraPercentage,
         MultipartFile profileImage,
         LocalDate startDate,
         String notes

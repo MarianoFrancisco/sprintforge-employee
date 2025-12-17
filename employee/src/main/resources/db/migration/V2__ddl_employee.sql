@@ -18,12 +18,9 @@ CREATE TABLE employee
 
     workload_type VARCHAR(20)    NOT NULL CHECK (
         workload_type IN ('FULL_TIME', 'PART_TIME')
-        ),
+    ),
 
     salary        NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
-    igss_percentage  NUMERIC(5, 2)  NOT NULL DEFAULT 0.00,
-    irtra_percentage NUMERIC(5, 2)  NOT NULL DEFAULT 0.00,
-
     profile_image VARCHAR(300),
 
     is_active     BOOLEAN        NOT NULL DEFAULT TRUE,
@@ -40,13 +37,13 @@ CREATE TABLE employment_history
 
     type        VARCHAR(20)    NOT NULL CHECK (
         type IN (
-                 'HIRING',
-                 'RAISE',
-                 'SUSPENSION',
-                 'WORKLOAD_CHANGE',
-                 'RESIGNATION'
-            )
-        ),
+            'HIRING',
+            'SALARY_INCREASE',
+            'SUSPENSION',
+            'REINSTATEMENT',
+            'TERMINATION'
+        )
+    ),
 
     start_date  DATE           NOT NULL,
     end_date    DATE,

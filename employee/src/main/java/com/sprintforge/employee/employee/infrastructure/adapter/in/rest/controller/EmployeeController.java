@@ -1,8 +1,5 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.controller;
 
-import com.sprintforge.employee.employee.application.port.in.command.ActivateEmployee;
-import com.sprintforge.employee.employee.application.port.in.command.DeactivateEmployee;
-import com.sprintforge.employee.employee.application.port.in.command.DeleteEmployee;
 import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployees;
 import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByCui;
 import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByEmail;
@@ -22,7 +19,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,9 +30,6 @@ public class EmployeeController {
     private final GetEmployeeById getEmployeeById;
     private final HireEmployee hireEmployee;
     private final UpdateEmployeeDetail updateEmployeeDetail;
-    private final ActivateEmployee activateEmployee;
-    private final DeactivateEmployee deactivateEmployee;
-    private final DeleteEmployee deleteEmployee;
 
     @GetMapping
     public List<EmployeeResponseDTO> getAll(
@@ -103,29 +96,5 @@ public class EmployeeController {
                 )
         );
         return EmployeeRestMapper.toResponse(updated);
-    }
-
-    @PatchMapping("/{id}:activate")
-    public EmployeeResponseDTO activate(@PathVariable UUID id) {
-        Employee activated = activateEmployee.handle(
-                EmployeeRestMapper.toActivateCommand(id)
-        );
-        return EmployeeRestMapper.toResponse(activated);
-    }
-
-    @PatchMapping("/{id}:deactivate")
-    public EmployeeResponseDTO deactivate(@PathVariable UUID id) {
-        Employee deactivated = deactivateEmployee.handle(
-                EmployeeRestMapper.toDeactivateCommand(id)
-        );
-        return EmployeeRestMapper.toResponse(deactivated);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(NO_CONTENT)
-    public void delete(@PathVariable UUID id) {
-        deleteEmployee.handle(
-                EmployeeRestMapper.toDeleteCommand(id)
-        );
     }
 }

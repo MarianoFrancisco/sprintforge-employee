@@ -1,8 +1,5 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.employee.employee.application.port.in.command.ActivateEmployeeCommand;
-import com.sprintforge.employee.employee.application.port.in.command.DeactivateEmployeeCommand;
-import com.sprintforge.employee.employee.application.port.in.command.DeleteEmployeeCommand;
 import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployeesQuery;
 import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByCuiQuery;
 import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByEmailQuery;
@@ -36,18 +33,13 @@ public class EmployeeRestMapper {
                 employee.getEmail().value(),
                 employee.getFirstName().value(),
                 employee.getLastName().value(),
-                employee.getFullName().value(),
+                employee.getFullName(),
                 employee.getPhoneNumber().value(),
                 employee.getBirthDate().value(),
                 employee.getWorkloadType(),
                 employee.getSalary().value(),
-                employee.getIgssPercentage().value(),
-                employee.getIrtraPercentage().value(),
                 employee.getProfileImage().value(),
                 employee.isActive(),
-                employee.isDeleted(),
-                employee.getCreatedAt(),
-                employee.getUpdatedAt(),
                 new EmployeePosition(
                         employee.getPosition().getId().value(),
                         employee.getPosition().getName().value(),
@@ -81,8 +73,6 @@ public class EmployeeRestMapper {
                 request.positionId(),
                 request.workloadType(),
                 request.salary(),
-                request.igssPercentage(),
-                request.irtraPercentage(),
                 request.profileImage(),
                 request.startDate(),
                 request.notes()
@@ -103,23 +93,5 @@ public class EmployeeRestMapper {
                 request.irtraPercentage(),
                 request.profileImage()
         );
-    }
-
-    public ActivateEmployeeCommand toActivateCommand(
-            UUID id
-    ) {
-        return new ActivateEmployeeCommand(id);
-    }
-
-    public DeactivateEmployeeCommand toDeactivateCommand(
-            UUID id
-    ) {
-        return new DeactivateEmployeeCommand(id);
-    }
-
-    public DeleteEmployeeCommand toDeleteCommand(
-            UUID id
-    ) {
-        return new DeleteEmployeeCommand(id);
     }
 }
