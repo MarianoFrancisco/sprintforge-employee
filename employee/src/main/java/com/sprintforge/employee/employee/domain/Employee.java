@@ -108,6 +108,10 @@ public class Employee {
             throw new ValidationException("No se puede aumentar salario a un empleado despedido");
         }
 
+        if (this.status == EmployeeStatus.SUSPENDED) {
+            throw new ValidationException("No se puede aumentar salario a un empleado suspendido");
+        }
+
         this.salary = this.salary.plus(new Money(amount));
     }
 
@@ -116,12 +120,17 @@ public class Employee {
             throw new ValidationException("Un empleado despedido no puede ser suspendido");
         }
 
+        if (this.status == EmployeeStatus.SUSPENDED) {
+            throw new ValidationException("El empleado ya está suspendido");
+        }
+
         this.status = EmployeeStatus.SUSPENDED;
     }
 
     public void reinstate() {
-        if (this.status == EmployeeStatus.TERMINATED) {
-            throw new ValidationException("Un empleado despedido no puede ser reinstalado");
+        if (this.status != EmployeeStatus.SUSPENDED) {
+            throw new ValidationException("Solo se pueden reinstalar empleados suspendidos");
+            
         }
 
         this.status = EmployeeStatus.ACTIVE;
