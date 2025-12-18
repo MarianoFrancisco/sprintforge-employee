@@ -89,8 +89,6 @@ public class EmployeeRestMapper {
                 request.lastName(),
                 request.phoneNumber(),
                 request.birthDate(),
-                request.igssPercentage(),
-                request.irtraPercentage(),
                 request.profileImage()
         );
     }

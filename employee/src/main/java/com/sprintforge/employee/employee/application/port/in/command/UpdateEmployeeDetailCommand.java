@@ -2,7 +2,6 @@ package com.sprintforge.employee.employee.application.port.in.command;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -12,8 +11,6 @@ public record UpdateEmployeeDetailCommand(
         String lastName,
         String phoneNumber,
         LocalDate birthDate,
-        BigDecimal igssPercentage,
-        BigDecimal irtraPercentage,
         MultipartFile profileImage
 ) {
 }
