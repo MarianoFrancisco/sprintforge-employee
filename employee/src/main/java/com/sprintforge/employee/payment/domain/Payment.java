@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.sprintforge.common.domain.exception.ValidationException;
 import com.sprintforge.employee.common.domain.valueobject.Money;
 import com.sprintforge.employee.employee.domain.Employee;
+import com.sprintforge.employee.employee.domain.valueobject.EmployeeStatus;
 import com.sprintforge.employee.payment.domain.valueobject.*;
 
 import lombok.AccessLevel;
@@ -32,6 +33,10 @@ public class Payment {
             Money bonus,
             Money deduction,
             PaymentNotes notes) {
+        if (employee.getStatus() != EmployeeStatus.ACTIVE) {
+            throw new ValidationException("No se puede procesar el pago de un empleado que no está activo");
+        }
+        
         Money baseSalary = employee.getSalary();
         if (deduction.isGreaterThanOrEqual(baseSalary.plus(bonus))) {
             throw new ValidationException("El total de descuento no puede ser mayor o igual al salario base más bonos");
