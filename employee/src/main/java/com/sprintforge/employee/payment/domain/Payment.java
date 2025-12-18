@@ -21,13 +21,15 @@ public class Payment {
     private final Money bonus;
     private final Money deduction;
     private final Money total;
+    private final String notes;
 
     public static Payment create(
             Employee employee,
             PaymentDate date,
             Money baseSalary,
             Money bonus,
-            Money deduction) {
+            Money deduction,
+            String notes) {
         if (deduction.isGreaterThanOrEqual(baseSalary.plus(bonus))) {
             throw new ValidationException("El total de descuento no puede ser mayor o igual al salario base más bonos");
         }
@@ -39,7 +41,8 @@ public class Payment {
                 baseSalary,
                 bonus,
                 deduction,
-                total);
+                total,
+                notes);
     }
 
     public static Payment rehydrate(
@@ -48,14 +51,16 @@ public class Payment {
             Money baseSalary,
             Money bonus,
             Money deduction,
-            Money total) {
+            Money total,
+            String notes) {
         return new Payment(
                 employee,
                 date,
                 baseSalary,
                 bonus,
                 deduction,
-                total);
+                total,
+                notes);
     }
 
 }
