@@ -18,14 +18,13 @@ CREATE TABLE employee
 
     workload_type VARCHAR(20)    NOT NULL CHECK (
         workload_type IN ('FULL_TIME', 'PART_TIME')
-    ),
+    ) DEFAULT 'FULL_TIME',
 
     salary        NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
     profile_image VARCHAR(300),
-
-    is_active     BOOLEAN        NOT NULL DEFAULT TRUE,
-    is_deleted    BOOLEAN        NOT NULL DEFAULT FALSE,
-
+    status VARCHAR(20)    NOT NULL CHECK (
+        status IN ('ACTIVE', 'SUSPENDED', 'TERMINATED')
+    ) DEFAULT 'ACTIVE',
     created_at    TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at    TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

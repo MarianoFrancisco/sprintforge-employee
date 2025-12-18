@@ -25,7 +25,7 @@ public class EmployeeEntityMapper {
                 entity.getWorkloadType(),
                 entity.getSalary(),
                 entity.getProfileImage(),
-                entity.isActive()
+                entity.getStatus()
         );
         return employee;
     }
@@ -45,9 +45,9 @@ public class EmployeeEntityMapper {
                 .birthDate(domain.getBirthDate().value())
                 .position(PositionEntityMapper.toEntity(domain.getPosition()))
                 .workloadType(domain.getWorkloadType())
-                .salary(domain.getSalary().value())
+                .salary(domain.getSalary().amount())
                 .profileImage(domain.getProfileImage().value())
-                .isActive(domain.isActive())
+                .status(domain.getStatus())
                 .build();
     }
 }

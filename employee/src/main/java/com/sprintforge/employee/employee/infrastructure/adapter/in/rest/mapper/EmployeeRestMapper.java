@@ -37,9 +37,9 @@ public class EmployeeRestMapper {
                 employee.getPhoneNumber().value(),
                 employee.getBirthDate().value(),
                 employee.getWorkloadType(),
-                employee.getSalary().value(),
+                employee.getSalary().amount(),
                 employee.getProfileImage().value(),
-                employee.isActive(),
+                employee.getStatus(),
                 new EmployeePosition(
                         employee.getPosition().getId().value(),
                         employee.getPosition().getName().value(),

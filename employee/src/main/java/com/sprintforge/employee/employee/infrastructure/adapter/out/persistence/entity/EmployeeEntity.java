@@ -1,5 +1,6 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.entity;
 
+import com.sprintforge.employee.employee.domain.valueobject.EmployeeStatus;
 import com.sprintforge.employee.employee.domain.valueobject.EmployeeWorkloadType;
 import com.sprintforge.employee.position.infrastructure.adapter.out.persistence.entity.PositionEntity;
 
@@ -7,8 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -39,17 +39,17 @@ public class EmployeeEntity {
     private PositionEntity position;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "workload_type", nullable = false, length = 20)
-    @JdbcType(PostgreSQLEnumJdbcType.class)
     private EmployeeWorkloadType workloadType;
 
     private BigDecimal salary;
     private String profileImage;
-    private boolean isActive;
+
+    @Enumerated(EnumType.STRING)
+    private EmployeeStatus status;
 
     @CreationTimestamp
     private Instant createdAt;
     
-    @CreationTimestamp
+    @UpdateTimestamp
     private Instant updatedAt;
 }

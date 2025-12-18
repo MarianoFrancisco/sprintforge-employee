@@ -10,16 +10,14 @@ public class EmploymentHistoryEntityMapper {
         if (entity == null) {
             return null;
         }
-        return new EmploymentHistory(
+        return EmploymentHistory.rehydrate(
                 entity.getId(),
-                entity.getEmployeeId(),
-                entity.getType().name(),
+                EmployeeEntityMapper.toDomain(entity.getEmployee()),
+                entity.getType(),
                 entity.getStartDate(),
                 entity.getEndDate(),
                 entity.getSalary(),
-                entity.getNotes(),
-                entity.getCreatedAt(),
-                entity.getUpdatedAt()
+                entity.getNotes()
         );
     }
 
@@ -29,14 +27,12 @@ public class EmploymentHistoryEntityMapper {
         }
         return EmploymentHistoryEntity.builder()
                 .id(domain.getId().value())
-                .employeeId(domain.getEmployeeId().value())
+                .employee(EmployeeEntityMapper.toEntity(domain.getEmployee()))
                 .type(domain.getType())
-                .startDate(domain.getStartDate())
-                .endDate(domain.getEndDate())
-                .salary(domain.getSalary().value())
+                .startDate(domain.getPeriod().getStartDate())
+                .endDate(domain.getPeriod().getEndDate())
+                .salary(domain.getSalary().amount())
                 .notes(domain.getNotes().value())
-                .createdAt(domain.getCreatedAt())
-                .updatedAt(domain.getUpdatedAt())
                 .build();
     }
 }

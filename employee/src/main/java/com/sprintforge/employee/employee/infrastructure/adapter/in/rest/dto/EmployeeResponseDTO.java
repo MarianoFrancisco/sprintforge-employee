@@ -1,6 +1,7 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto;
 
 import com.sprintforge.employee.employee.domain.valueobject.EmployeePosition;
+import com.sprintforge.employee.employee.domain.valueobject.EmployeeStatus;
 import com.sprintforge.employee.employee.domain.valueobject.EmployeeWorkloadType;
 
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ public record EmployeeResponseDTO(
 
         String profileImage,
 
-        boolean isActive,
+        EmployeeStatus status,
 
         EmployeePosition position
 ) {
