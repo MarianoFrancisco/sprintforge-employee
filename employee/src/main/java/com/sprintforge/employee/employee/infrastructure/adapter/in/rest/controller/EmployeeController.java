@@ -1,18 +1,14 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.controller;
 
-import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployees;
-import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByCui;
-import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByEmail;
-import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeById;
-import com.sprintforge.employee.employee.application.port.in.command.HireEmployee;
-import com.sprintforge.employee.employee.application.port.in.command.UpdateEmployeeDetail;
 import com.sprintforge.employee.employee.domain.Employee;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.UpdateEmployeeDetailRequestDTO;
+import com.sprintforge.employee.employee.application.port.in.query.*;
+import com.sprintforge.employee.employee.application.port.in.command.*;
+import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.*;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper.EmployeeRestMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +26,10 @@ public class EmployeeController {
     private final GetEmployeeById getEmployeeById;
     private final HireEmployee hireEmployee;
     private final UpdateEmployeeDetail updateEmployeeDetail;
+    private final IncreaseEmployeeSalary increaseEmployeeSalary;
+    private final ReinstateEmployee reinstateEmployee;
+    private final SuspendEmployee suspendEmployee;
+    private final TerminateEmployee terminateEmployee;
 
     @GetMapping
     public List<EmployeeResponseDTO> getAll(
@@ -92,6 +92,62 @@ public class EmployeeController {
         Employee updated = updateEmployeeDetail.handle(
                 EmployeeRestMapper.toUpdateCommand(
                         id,
+                        dto
+                )
+        );
+        return EmployeeRestMapper.toResponse(updated);
+    }
+
+    @PostMapping("/{cui}/salary/increase")
+    public EmployeeResponseDTO increaseSalary(
+        @PathVariable String cui,
+        @Validated @RequestBody IncreaseEmployeeSalaryRequestDTO dto
+    ) {
+        Employee updated = increaseEmployeeSalary.handle(
+                EmployeeRestMapper.toIncreaseSalaryCommand(
+                        cui,
+                        dto
+                )
+        );
+        return EmployeeRestMapper.toResponse(updated);
+    }
+
+    @PostMapping("/{cui}/reinstate")
+    public EmployeeResponseDTO reinstate(
+        @PathVariable String cui,
+        @Validated @RequestBody ReinstateEmployeeRequestDTO dto
+    ) {
+        Employee updated = reinstateEmployee.handle(
+                EmployeeRestMapper.toReinstateCommand(
+                        cui,
+                        dto
+                )
+        );
+        return EmployeeRestMapper.toResponse(updated);
+    }
+
+    @PostMapping("/{cui}/suspend")
+    public EmployeeResponseDTO suspend(
+        @PathVariable String cui,
+        @Validated @RequestBody SuspendEmployeeRequestDTO dto
+    ) {
+        Employee updated = suspendEmployee.handle(
+                EmployeeRestMapper.toSuspendCommand(
+                        cui,
+                        dto
+                )
+        );
+        return EmployeeRestMapper.toResponse(updated);
+    }
+
+    @PostMapping("/{cui}/terminate")
+    public EmployeeResponseDTO terminate(
+        @PathVariable String cui,
+        @Validated @RequestBody TerminateEmployeeRequestDTO dto
+    ) {
+        Employee updated = terminateEmployee.handle(
+                EmployeeRestMapper.toTerminateCommand(
+                        cui,
                         dto
                 )
         );

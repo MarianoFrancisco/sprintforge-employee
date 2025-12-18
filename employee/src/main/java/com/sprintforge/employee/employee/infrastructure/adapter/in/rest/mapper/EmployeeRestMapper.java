@@ -1,16 +1,10 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.employee.employee.application.port.in.query.GetAllEmployeesQuery;
-import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByCuiQuery;
-import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByEmailQuery;
-import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByIdQuery;
-import com.sprintforge.employee.employee.application.port.in.command.HireEmployeeCommand;
-import com.sprintforge.employee.employee.application.port.in.command.UpdateEmployeeDetailCommand;
+import com.sprintforge.employee.employee.application.port.in.query.*;
+import com.sprintforge.employee.employee.application.port.in.command.*;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.domain.valueobject.EmployeePosition;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.UpdateEmployeeDetailRequestDTO;
+import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.*;
 import lombok.experimental.UtilityClass;
 
 import java.util.UUID;
@@ -90,6 +84,51 @@ public class EmployeeRestMapper {
                 request.phoneNumber(),
                 request.birthDate(),
                 request.profileImage()
+        );
+    }
+
+    public IncreaseEmployeeSalaryCommand toIncreaseSalaryCommand(
+            String cui,
+            IncreaseEmployeeSalaryRequestDTO request
+    ) {
+        return new IncreaseEmployeeSalaryCommand(
+                cui,
+                request.increaseAmount(),
+                request.date(),
+                request.notes()
+        );
+    }
+
+    public ReinstateEmployeeCommand toReinstateCommand(
+            String cui,
+            ReinstateEmployeeRequestDTO request
+    ) {
+        return new ReinstateEmployeeCommand(
+                cui,
+                request.date(),
+                request.notes()
+        );
+    }
+
+    public SuspendEmployeeCommand toSuspendCommand(
+            String cui,
+            SuspendEmployeeRequestDTO request
+    ) {
+        return new SuspendEmployeeCommand(
+                cui,
+                request.date(),
+                request.notes()
+        );
+    }
+
+    public TerminateEmployeeCommand toTerminateCommand(
+            String cui,
+            TerminateEmployeeRequestDTO request
+    ) {
+        return new TerminateEmployeeCommand(
+                cui,
+                request.date(),
+                request.notes()
         );
     }
 }
