@@ -4,13 +4,10 @@ import com.sprintforge.common.domain.exception.ValidationException;
 
 public enum EmploymentHistoryType {
     HIRING,
-    REHIRING,
-    PROMOTION,
-    RAISE,
+    SALARY_INCREASE,
     SUSPENSION,
-    WORKLOAD_CHANGE,
-    TERMINATION,
-    RESIGNATION;
+    REINSTATEMENT,
+    TERMINATION;
 
     public static EmploymentHistoryType safeValueOf(String value) {
         if (value == null || value.isBlank()) {

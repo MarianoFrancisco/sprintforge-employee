@@ -1,13 +1,10 @@
 package com.sprintforge.employee.employee.domain;
 
+import com.sprintforge.common.domain.exception.ValidationException;
 import com.sprintforge.employee.employee.domain.valueobject.*;
 import com.sprintforge.employee.position.domain.Position;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -32,9 +29,9 @@ public class Employee {
     private EmployeeWorkloadType workloadType;
     private EmployeeSalary salary;
     private EmployeeProfileImage profileImage;
-    private boolean isActive;
+    private EmployeeStatus status;
 
-    public static Employee create(
+    public static Employee hire(
             String cui,
             String email,
             String firstName,
@@ -58,7 +55,7 @@ public class Employee {
                 Objects.requireNonNullElse(workloadType, EmployeeWorkloadType.FULL_TIME),
                 new EmployeeSalary(salary),
                 new EmployeeProfileImage(profileImage),
-                true);
+                EmployeeStatus.ACTIVE);
     }
 
     public static Employee rehydrate(
@@ -74,7 +71,7 @@ public class Employee {
             EmployeeWorkloadType workloadType,
             BigDecimal salary,
             String profileImage,
-            boolean isActive) {
+            EmployeeStatus status) {
         return new Employee(
                 new EmployeeId(id),
                 new EmployeeCui(cui),
@@ -88,7 +85,7 @@ public class Employee {
                 workloadType,
                 new EmployeeSalary(salary),
                 new EmployeeProfileImage(profileImage),
-                isActive);
+                status);
     }
 
     public void updateDetails(
@@ -103,5 +100,37 @@ public class Employee {
         this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
         this.birthDate = new EmployeeBirthDate(birthDate);
         this.profileImage = new EmployeeProfileImage(profileImage);
+    }
+
+    public void increaseSalary(BigDecimal amount) {
+        if (this.status == EmployeeStatus.TERMINATED) {
+            throw new ValidationException("No se puede aumentar salario a un empleado despedido");
+        }
+
+        this.salary = this.salary.increase(amount);
+    }
+
+    public void suspend() {
+        if (this.status == EmployeeStatus.TERMINATED) {
+            throw new ValidationException("Un empleado despedido no puede ser suspendido");
+        }
+
+        this.status = EmployeeStatus.SUSPENDED;
+    }
+
+    public void reinstate() {
+        if (this.status == EmployeeStatus.TERMINATED) {
+            throw new ValidationException("Un empleado despedido no puede ser reinstalado");
+        }
+
+        this.status = EmployeeStatus.ACTIVE;
+    }
+
+    public void terminate(LocalDate terminationDate) {
+        if (this.status == EmployeeStatus.TERMINATED) {
+            throw new ValidationException("El empleado ya está despedido");
+        }
+
+        this.status = EmployeeStatus.TERMINATED;
     }
 }
