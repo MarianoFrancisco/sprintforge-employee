@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public record GetAllPaymentsQuery(
     String employee,
+    String position,
     LocalDate fromDate,
     LocalDate toDate
 ) {}
