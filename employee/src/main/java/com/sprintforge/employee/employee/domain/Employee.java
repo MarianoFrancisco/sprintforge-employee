@@ -1,6 +1,7 @@
 package com.sprintforge.employee.employee.domain;
 
 import com.sprintforge.common.domain.exception.ValidationException;
+import com.sprintforge.employee.common.domain.valueobject.Money;
 import com.sprintforge.employee.employee.domain.valueobject.*;
 import com.sprintforge.employee.position.domain.Position;
 
@@ -27,7 +28,7 @@ public class Employee {
     @NonNull
     private Position position;
     private EmployeeWorkloadType workloadType;
-    private EmployeeSalary salary;
+    private Money salary;
     private EmployeeProfileImage profileImage;
     private EmployeeStatus status;
 
@@ -53,7 +54,7 @@ public class Employee {
                 new EmployeeBirthDate(birthDate),
                 position,
                 Objects.requireNonNullElse(workloadType, EmployeeWorkloadType.FULL_TIME),
-                new EmployeeSalary(salary),
+                new Money(salary),
                 new EmployeeProfileImage(profileImage),
                 EmployeeStatus.ACTIVE);
     }
@@ -83,7 +84,7 @@ public class Employee {
                 new EmployeeBirthDate(birthDate),
                 position,
                 workloadType,
-                new EmployeeSalary(salary),
+                new Money(salary),
                 new EmployeeProfileImage(profileImage),
                 status);
     }
@@ -107,7 +108,7 @@ public class Employee {
             throw new ValidationException("No se puede aumentar salario a un empleado despedido");
         }
 
-        this.salary = this.salary.increase(amount);
+        this.salary = this.salary.plus(new Money(amount));
     }
 
     public void suspend() {

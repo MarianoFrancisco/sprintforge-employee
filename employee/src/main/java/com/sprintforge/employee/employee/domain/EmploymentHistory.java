@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import com.sprintforge.employee.common.domain.valueobject.Money;
 import com.sprintforge.employee.employee.domain.valueobject.*;
 
 import lombok.*;
@@ -19,7 +20,7 @@ public class EmploymentHistory {
     @NonNull
     private final EmploymentHistoryType type;
     private final EmploymentHistoryPeriod period;
-    private final EmployeeSalary salary;
+    private final Money salary;
     private final EmploymentHistoryNotes notes;
 
     public static EmploymentHistory create(
@@ -33,7 +34,7 @@ public class EmploymentHistory {
                 employee,
                 type,
                 EmploymentHistoryPeriod.start(startDate),
-                new EmployeeSalary(salary),
+                new Money(salary),
                 new EmploymentHistoryNotes(notes));
     }
 
@@ -50,7 +51,7 @@ public class EmploymentHistory {
                 employee,
                 type,
                 EmploymentHistoryPeriod.of(startDate, endDate),
-                new EmployeeSalary(salary),
+                new Money(salary),
                 new EmploymentHistoryNotes(notes));
     }
 
