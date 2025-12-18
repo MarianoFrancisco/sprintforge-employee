@@ -19,7 +19,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "employee")
+@Table(name = "payment")
 public class PaymentEntity {
     @Id
     private UUID id;

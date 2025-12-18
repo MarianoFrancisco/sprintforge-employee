@@ -40,13 +40,13 @@ public class PaymentSpecs {
     public static Specification<PaymentEntity> paymentDateGreaterThanOrEqualTo(LocalDate fromDate) {
         return (root, query, criteriaBuilder) -> (fromDate == null)
                 ? null
-                : criteriaBuilder.greaterThanOrEqualTo(root.get("paymentDate"), fromDate);
+                : criteriaBuilder.greaterThanOrEqualTo(root.get("date"), fromDate);
     }
 
     public static Specification<PaymentEntity> paymentDateLessThanOrEqualTo(LocalDate toDate) {
         return (root, query, criteriaBuilder) -> (toDate == null)
                 ? null
-                : criteriaBuilder.lessThanOrEqualTo(root.get("paymentDate"), toDate);
+                : criteriaBuilder.lessThanOrEqualTo(root.get("date"), toDate);
     }
 
     // Filtro por rango de salario
