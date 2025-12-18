@@ -1,5 +1,7 @@
 package com.sprintforge.employee.payment.infrastructure.adapter.in.rest.dto;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public record PaymentResponseDTO(
@@ -7,10 +9,10 @@ public record PaymentResponseDTO(
     String fullName,
     UUID positionId,
     String positionName,
-    String date,
-    String baseSalary,
-    String bonus,
-    String deduction,
-    String total,
+    LocalDate date,
+    BigDecimal baseSalary,
+    BigDecimal bonus,
+    BigDecimal deduction,
+    BigDecimal total,
     String notes
 ) {}
