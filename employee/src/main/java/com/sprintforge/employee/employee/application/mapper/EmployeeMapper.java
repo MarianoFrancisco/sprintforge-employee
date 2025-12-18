@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class EmployeeMapper {
     public Employee toDomain(HireEmployeeCommand command, Position position) {
-        return Employee.create(
+        return Employee.hire(
                 command.cui(),
                 command.email(),
                 command.firstName(),
