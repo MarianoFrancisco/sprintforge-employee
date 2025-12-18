@@ -4,6 +4,7 @@ import com.sprintforge.common.domain.exception.ValidationException;
 import com.sprintforge.employee.common.domain.valueobject.Money;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.payment.domain.valueobject.PaymentDate;
+import com.sprintforge.employee.payment.domain.valueobject.PaymentNotes;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,15 +22,15 @@ public class Payment {
     private final Money bonus;
     private final Money deduction;
     private final Money total;
-    private final String notes;
+    private final PaymentNotes notes;
 
     public static Payment create(
             Employee employee,
             PaymentDate date,
-            Money baseSalary,
             Money bonus,
             Money deduction,
-            String notes) {
+            PaymentNotes notes) {
+        Money baseSalary = employee.getSalary();
         if (deduction.isGreaterThanOrEqual(baseSalary.plus(bonus))) {
             throw new ValidationException("El total de descuento no puede ser mayor o igual al salario base más bonos");
         }
@@ -52,7 +53,7 @@ public class Payment {
             Money bonus,
             Money deduction,
             Money total,
-            String notes) {
+            PaymentNotes notes) {
         return new Payment(
                 employee,
                 date,
