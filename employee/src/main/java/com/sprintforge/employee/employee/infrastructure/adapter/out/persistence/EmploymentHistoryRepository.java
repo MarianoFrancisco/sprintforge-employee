@@ -3,9 +3,11 @@ package com.sprintforge.employee.employee.infrastructure.adapter.out.persistence
 import com.sprintforge.employee.employee.application.port.in.query.GetAllEmploymentHistoriesQuery;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindActiveEmploymentByEmployee;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindAllEmploymentHistories;
+import com.sprintforge.employee.employee.application.port.out.persistence.FindEmploymentByType;
 import com.sprintforge.employee.employee.application.port.out.persistence.SaveEmploymentHistory;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.domain.EmploymentHistory;
+import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryType;
 import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.entity.EmploymentHistoryEntity;
 import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.mapper.EmployeeEntityMapper;
 import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.mapper.EmploymentHistoryEntityMapper;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Repository;
 public class EmploymentHistoryRepository implements
         SaveEmploymentHistory,
         FindActiveEmploymentByEmployee,
+        FindEmploymentByType,
         FindAllEmploymentHistories {
 
     private final EmploymentHistoryJpaRepository employmentHistoryJpaRepository;
@@ -56,5 +59,14 @@ public class EmploymentHistoryRepository implements
         return employmentHistoryJpaRepository.findAll(spec).stream()
                 .map(EmploymentHistoryEntityMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public Optional<EmploymentHistory> findByEmployeeAndType(Employee employee, EmploymentHistoryType type) {
+        return employmentHistoryJpaRepository
+                .findByEmployeeAndType(EmployeeEntityMapper.toEntity(employee), type)
+                .stream()
+                .findFirst()
+                .map(EmploymentHistoryEntityMapper::toDomain);
     }
 }
