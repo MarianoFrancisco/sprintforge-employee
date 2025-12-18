@@ -1,10 +1,11 @@
 package com.sprintforge.employee.payment.domain;
 
+import java.util.UUID;
+
 import com.sprintforge.common.domain.exception.ValidationException;
 import com.sprintforge.employee.common.domain.valueobject.Money;
 import com.sprintforge.employee.employee.domain.Employee;
-import com.sprintforge.employee.payment.domain.valueobject.PaymentDate;
-import com.sprintforge.employee.payment.domain.valueobject.PaymentNotes;
+import com.sprintforge.employee.payment.domain.valueobject.*;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.NonNull;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Payment {
 
+    private final PaymentId id;
     @NonNull
     private final Employee employee;
     private final PaymentDate date;
@@ -37,6 +39,7 @@ public class Payment {
 
         Money total = baseSalary.plus(bonus).minus(deduction);
         return new Payment(
+                new PaymentId(UUID.randomUUID()),
                 employee,
                 date,
                 baseSalary,
@@ -47,6 +50,7 @@ public class Payment {
     }
 
     public static Payment rehydrate(
+            UUID id,
             Employee employee,
             PaymentDate date,
             Money baseSalary,
@@ -55,6 +59,7 @@ public class Payment {
             Money total,
             PaymentNotes notes) {
         return new Payment(
+                new PaymentId(id),
                 employee,
                 date,
                 baseSalary,
