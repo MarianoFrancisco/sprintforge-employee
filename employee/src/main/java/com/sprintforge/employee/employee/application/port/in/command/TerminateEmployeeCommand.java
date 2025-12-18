@@ -1,10 +1,9 @@
 package com.sprintforge.employee.employee.application.port.in.command;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public record TerminateEmployeeCommand(
-    UUID employeeId,
+    String cui,
     LocalDate date,
     String notes
 ) {}

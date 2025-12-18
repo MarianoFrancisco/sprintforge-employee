@@ -126,7 +126,7 @@ public class Employee {
         this.status = EmployeeStatus.ACTIVE;
     }
 
-    public void terminate(LocalDate terminationDate) {
+    public void terminate() {
         if (this.status == EmployeeStatus.TERMINATED) {
             throw new ValidationException("El empleado ya está despedido");
         }
