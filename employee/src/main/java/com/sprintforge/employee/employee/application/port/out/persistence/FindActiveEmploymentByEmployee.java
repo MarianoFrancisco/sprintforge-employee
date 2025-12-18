@@ -6,5 +6,5 @@ import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.domain.EmploymentHistory;
 
 public interface FindActiveEmploymentByEmployee {
-    Optional<EmploymentHistory> findActiveByEmployee(Employee employee);
+    Optional<EmploymentHistory> findActiveEmploymentPeriodByEmployee(Employee employee);
 }

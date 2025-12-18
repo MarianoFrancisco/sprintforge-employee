@@ -32,7 +32,7 @@ public class ReinstateEmployeeImpl implements ReinstateEmployee {
         Employee employee = findEmployeeByCui.findByCui(command.cui())
                 .orElseThrow(() -> EmployeeNotFoundException.byCui(command.cui()));
 
-        EmploymentHistory activePeriod = findActiveEmploymentByEmployee.findActiveByEmployee(employee)
+        EmploymentHistory activePeriod = findActiveEmploymentByEmployee.findActiveEmploymentPeriodByEmployee(employee)
                 .orElseThrow(() -> new EmploymentHistoryNotFound(command.cui()));
 
         if (!command.date().isAfter(activePeriod.getPeriod().getStartDate())) {
