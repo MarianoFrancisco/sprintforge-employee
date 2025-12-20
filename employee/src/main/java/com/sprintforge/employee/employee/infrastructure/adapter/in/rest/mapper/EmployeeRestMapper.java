@@ -16,14 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 @UtilityClass
 public class EmployeeRestMapper {
 
-    public GetAllEmployeesQuery toQuery(String searchTerm, Boolean isActive, Boolean isDeleted) {
-        return new GetAllEmployeesQuery(
-                searchTerm,
-                isActive,
-                isDeleted
-        );
-    }
-
     public EmployeeResponseDTO toResponse(Employee employee) {
         return new EmployeeResponseDTO(
                 employee.getId().value(),

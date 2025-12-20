@@ -33,17 +33,9 @@ public class EmployeeController {
 
     @GetMapping
     public List<EmployeeResponseDTO> getAll(
-            @RequestParam(required = false) String searchTerm,
-            @RequestParam(required = false) Boolean isActive,
-            @RequestParam(required = false) Boolean isDeleted
+            GetAllEmployeesQuery query
     ) {
-        List<Employee> employees = getAllEmployees.handle(
-                EmployeeRestMapper.toQuery(
-                        searchTerm,
-                        isActive,
-                        isDeleted
-                )
-        );
+        List<Employee> employees = getAllEmployees.handle(query);
         return employees.stream()
                 .map(EmployeeRestMapper::toResponse)
                 .toList();

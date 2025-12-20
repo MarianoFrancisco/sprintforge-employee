@@ -44,8 +44,9 @@ public class EmployeeRepository implements
     public List<Employee> findAll(GetAllEmployeesQuery query) {
         Specification<EmployeeEntity> spec = EmployeeSpecs.withFilters(
                 query.searchTerm(),
-                query.isActive(),
-                query.isDeleted()
+                query.position(),
+                query.workloadType(),
+                query.status()
         );
 
         return employeeJpaRepository.findAll(spec)
