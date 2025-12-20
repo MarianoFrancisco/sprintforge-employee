@@ -7,10 +7,13 @@ import org.springframework.data.jpa.domain.Specification;
 import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryType;
 import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.entity.EmploymentHistoryEntity;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class EmploymentHistorySpecs {
 
     // Filtros por Employee (OR entre campos)
-    public static Specification<EmploymentHistoryEntity> employeeFullnameContains(String fullname) {
+    public Specification<EmploymentHistoryEntity> employeeFullnameContains(String fullname) {
         return (root, query, criteriaBuilder) -> (fullname == null || fullname.isBlank())
                 ? null
                 : criteriaBuilder.like(
@@ -18,13 +21,13 @@ public class EmploymentHistorySpecs {
                         "%" + fullname.toLowerCase() + "%");
     }
 
-    public static Specification<EmploymentHistoryEntity> employeeCuiEquals(String cui) {
+    public Specification<EmploymentHistoryEntity> employeeCuiEquals(String cui) {
         return (root, query, criteriaBuilder) -> (cui == null || cui.isBlank())
                 ? null
                 : criteriaBuilder.equal(root.join("employee").get("cui"), cui);
     }
 
-    public static Specification<EmploymentHistoryEntity> positionNameContains(String positionName) {
+    public Specification<EmploymentHistoryEntity> positionNameContains(String positionName) {
         return (root, query, criteriaBuilder) -> (positionName == null || positionName.isBlank())
                 ? null
                 : criteriaBuilder.like(
@@ -32,45 +35,45 @@ public class EmploymentHistorySpecs {
                         "%" + positionName.toLowerCase() + "%");
     }
 
-    public static Specification<EmploymentHistoryEntity> positionIdEquals(String positionId) {
+    public Specification<EmploymentHistoryEntity> positionIdEquals(String positionId) {
         return (root, query, criteriaBuilder) -> (positionId == null)
                 ? null
                 : criteriaBuilder.equal(root.join("employee").join("position").get("id"), positionId);
     }
 
     // Filtros por fechas
-    public static Specification<EmploymentHistoryEntity> startDateGreaterThanOrEqualTo(LocalDate startDate) {
+    public Specification<EmploymentHistoryEntity> startDateGreaterThanOrEqualTo(LocalDate startDate) {
         return (root, query, criteriaBuilder) -> (startDate == null)
                 ? null
                 : criteriaBuilder.greaterThanOrEqualTo(root.get("startDate"), startDate);
     }
 
-    public static Specification<EmploymentHistoryEntity> startDateLessThanOrEqualTo(LocalDate endDate) {
+    public Specification<EmploymentHistoryEntity> startDateLessThanOrEqualTo(LocalDate endDate) {
         return (root, query, criteriaBuilder) -> (endDate == null)
                 ? null
                 : criteriaBuilder.lessThanOrEqualTo(root.get("startDate"), endDate);
     }
 
-    public static Specification<EmploymentHistoryEntity> endDateGreaterThanOrEqualTo(LocalDate startDate) {
+    public Specification<EmploymentHistoryEntity> endDateGreaterThanOrEqualTo(LocalDate startDate) {
         return (root, query, criteriaBuilder) -> (startDate == null)
                 ? null
                 : criteriaBuilder.greaterThanOrEqualTo(root.get("endDate"), startDate);
     }
 
-    public static Specification<EmploymentHistoryEntity> endDateLessThanOrEqualTo(LocalDate endDate) {
+    public Specification<EmploymentHistoryEntity> endDateLessThanOrEqualTo(LocalDate endDate) {
         return (root, query, criteriaBuilder) -> (endDate == null)
                 ? null
                 : criteriaBuilder.lessThanOrEqualTo(root.get("endDate"), endDate);
     }
 
     // Filtro por tipo de período
-    public static Specification<EmploymentHistoryEntity> periodTypeEquals(EmploymentHistoryType periodType) {
+    public Specification<EmploymentHistoryEntity> periodTypeEquals(EmploymentHistoryType periodType) {
         return (root, query, criteriaBuilder) -> (periodType == null)
                 ? null
                 : criteriaBuilder.equal(root.get("type"), periodType);
     }
 
-    public static Specification<EmploymentHistoryEntity> withFilters(
+    public Specification<EmploymentHistoryEntity> withFilters(
             String employee,
             String position,
             EmploymentHistoryType type,
