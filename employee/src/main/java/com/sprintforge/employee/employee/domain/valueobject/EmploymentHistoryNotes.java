@@ -7,5 +7,6 @@ public record EmploymentHistoryNotes(String value) {
         if (value != null && value.length() > 255) {
             throw new ValidationException("Las notas no pueden tener más de 255 caracteres");
         }
+        value = value != null ? value.trim() : null;
     }
 }

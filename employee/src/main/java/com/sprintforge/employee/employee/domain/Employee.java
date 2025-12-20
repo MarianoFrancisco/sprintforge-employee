@@ -88,18 +88,6 @@ public class Employee {
                 status);
     }
 
-    public void updateDetails(
-            String firstName,
-            String lastName,
-            String phoneNumber,
-            LocalDate birthDate) {
-        this.firstName = new EmployeeFirstName(firstName);
-        this.lastName = new EmployeeLastName(lastName);
-        this.fullName = firstName + " " + lastName;
-        this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
-        this.birthDate = new EmployeeBirthDate(birthDate);
-    }
-
     public void increaseSalary(BigDecimal amount) {
         if (this.status == EmployeeStatus.TERMINATED) {
             throw new ValidationException("No se puede aumentar salario a un empleado despedido");
@@ -127,7 +115,6 @@ public class Employee {
     public void reinstate() {
         if (this.status != EmployeeStatus.SUSPENDED) {
             throw new ValidationException("Solo se pueden reinstalar empleados suspendidos");
-            
         }
 
         this.status = EmployeeStatus.ACTIVE;
@@ -139,6 +126,35 @@ public class Employee {
         }
 
         this.status = EmployeeStatus.TERMINATED;
+    }
+
+    public void updateDetails(
+            String firstName,
+            String lastName,
+            String phoneNumber,
+            LocalDate birthDate) {
+        if (this.status != EmployeeStatus.ACTIVE) {
+            throw new ValidationException("Solo se pueden actualizar datos de empleados activos");
+        }
+        if (firstName != null) {
+            this.firstName = new EmployeeFirstName(firstName);
+        }
+
+        if (lastName != null) {
+            this.lastName = new EmployeeLastName(lastName);
+        }
+
+        if (firstName != null || lastName != null) {
+            this.fullName = this.firstName.value() + " " + this.lastName.value();
+        }
+
+        if (phoneNumber != null) {
+            this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
+        }
+
+        if (birthDate != null) {
+            this.birthDate = new EmployeeBirthDate(birthDate);
+        }
     }
 
     public void setProfileImage(String profileImage) {

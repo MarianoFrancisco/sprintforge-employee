@@ -10,5 +10,6 @@ public record EmployeeLastName(String value) {
         if (value.length() > 100) {
             throw new ValidationException("El apellido no puede tener más de 100 caracteres");
         }
+        value = value.trim();
     }
 }

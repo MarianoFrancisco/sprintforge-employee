@@ -10,5 +10,6 @@ public record EmployeeFirstName(String value) {
         if (value.length() > 100) {
             throw new ValidationException("El nombre no puede tener más de 100 caracteres");
         }
+        value = value.trim();
     }
 }
