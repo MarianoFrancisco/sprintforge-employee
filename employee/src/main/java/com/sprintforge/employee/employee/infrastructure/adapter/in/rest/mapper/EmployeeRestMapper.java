@@ -7,7 +7,11 @@ import com.sprintforge.employee.employee.domain.valueobject.EmployeePosition;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.*;
 import lombok.experimental.UtilityClass;
 
+import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @UtilityClass
 public class EmployeeRestMapper {
@@ -67,7 +71,7 @@ public class EmployeeRestMapper {
                 request.positionId(),
                 request.workloadType(),
                 request.salary(),
-                request.profileImage(),
+                toImageContent(request.profileImage()),
                 request.startDate(),
                 request.notes()
         );
@@ -83,7 +87,7 @@ public class EmployeeRestMapper {
                 request.lastName(),
                 request.phoneNumber(),
                 request.birthDate(),
-                request.profileImage()
+                toImageContent(request.profileImage())
         );
     }
 
@@ -130,5 +134,20 @@ public class EmployeeRestMapper {
                 request.date(),
                 request.notes()
         );
+    }
+
+    private Optional<ImageContent> toImageContent(MultipartFile multipartFile) {
+        if (multipartFile == null || multipartFile.isEmpty()) {
+            return Optional.empty();
+        }
+        try {
+            return Optional.of(new ImageContent(
+                    multipartFile.getInputStream(),
+                    multipartFile.getSize(),
+                    multipartFile.getContentType()
+            ));
+        } catch (IOException e) {
+            return Optional.empty();
+        }
     }
 }

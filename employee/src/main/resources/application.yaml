@@ -87,3 +87,11 @@ eureka:
   client:
     service-url:
       defaultZone: http://${EUREKA_HOSTNAME:localhost}:${EUREKA_PORT:8761}/eureka/
+
+storage:
+  s3:
+    bucket: ${S3_BUCKET:sprintforge-bucket}
+    region: ${AWS_REGION:region}
+    avatar-prefix: ${S3_AVATAR_PREFIX:avatars/employees}
+  cdn:
+    cloudfront-base-url: ${CLOUDFRONT_BASE_URL:https://dxxxxxxxxxxxx.cloudfront.net}
