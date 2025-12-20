@@ -5,6 +5,8 @@ import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeBy
 import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByIdQuery;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindEmployeeById;
 import com.sprintforge.employee.employee.domain.Employee;
+import com.sprintforge.employee.employee.infrastructure.adapter.out.storage.S3EmployeeImageStorage;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class GetEmployeeByIdImpl implements GetEmployeeById {
 
     private final FindEmployeeById findEmployeeById;
+    private final S3EmployeeImageStorage employeeImageStorage;
 
     @Override
     public Employee handle(GetEmployeeByIdQuery query) {
-        return findEmployeeById.findById(query.id())
+        Employee employee = findEmployeeById.findById(query.id())
                 .orElseThrow(
-                        () -> EmployeeNotFoundException.byId(query.id())
-                );
+                        () -> EmployeeNotFoundException.byId(query.id()));
+
+        if (!employee.getProfileImage().isEmpty()) {
+            employee.setProfileImage(
+                    employeeImageStorage.getEmployeeImageUrl(employee.getProfileImage())
+                            .orElse(null));
+        }
+
+        return employee;
     }
 }

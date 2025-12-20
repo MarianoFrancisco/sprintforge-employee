@@ -1,10 +1,10 @@
 package com.sprintforge.employee.employee.application.port.in.command;
 
 import com.sprintforge.employee.employee.domain.valueobject.EmployeeWorkloadType;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 public record HireEmployeeCommand(
@@ -17,7 +17,7 @@ public record HireEmployeeCommand(
         UUID positionId,
         EmployeeWorkloadType workloadType,
         BigDecimal salary,
-        MultipartFile profileImage,
+        Optional<ImageContent> profileImage,
         LocalDate startDate,
         String notes
 ) {

@@ -19,8 +19,7 @@ public class EmployeeMapper {
                 command.birthDate(),
                 position,
                 command.workloadType(),
-                command.salary(),
-                null
+                command.salary()
         );
     }
 

@@ -5,6 +5,8 @@ import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeBy
 import com.sprintforge.employee.employee.application.port.in.query.GetEmployeeByEmailQuery;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindEmployeeByEmail;
 import com.sprintforge.employee.employee.domain.Employee;
+import com.sprintforge.employee.employee.infrastructure.adapter.out.storage.S3EmployeeImageStorage;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +17,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class GetEmployeeByEmailImpl implements GetEmployeeByEmail {
 
     private final FindEmployeeByEmail findEmployeeByEmail;
+    private final S3EmployeeImageStorage employeeImageStorage;
 
     @Override
     public Employee handle(GetEmployeeByEmailQuery query) {
-        return findEmployeeByEmail.findByEmail(query.email())
+        Employee employee = findEmployeeByEmail.findByEmail(query.email())
                 .orElseThrow(
-                        () -> EmployeeNotFoundException.byEmail(query.email())
-                );
+                        () -> EmployeeNotFoundException.byEmail(query.email()));
+        if (!employee.getProfileImage().isEmpty()) {
+            employee.setProfileImage(
+                    employeeImageStorage.getEmployeeImageUrl(employee.getProfileImage())
+                            .orElse(null));
+        }
+
+        return employee;
     }
 }

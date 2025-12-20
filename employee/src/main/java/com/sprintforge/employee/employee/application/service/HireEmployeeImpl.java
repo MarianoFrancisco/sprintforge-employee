@@ -9,6 +9,7 @@ import com.sprintforge.employee.employee.application.port.out.persistence.Exists
 import com.sprintforge.employee.employee.application.port.out.persistence.ExistsEmployeeByEmail;
 import com.sprintforge.employee.employee.application.port.out.persistence.SaveEmployee;
 import com.sprintforge.employee.employee.application.port.out.persistence.SaveEmploymentHistory;
+import com.sprintforge.employee.employee.application.port.out.storage.EmployeeImageStorage;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.domain.EmploymentHistory;
 import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryType;
@@ -31,6 +32,7 @@ public class HireEmployeeImpl implements HireEmployee {
     private final SaveEmployee saveEmployee;
     private final SaveEmploymentHistory saveEmploymentHistory;
     private final EmployeeEventPublisher employeeEventPublisher;
+    private final EmployeeImageStorage employeeImageStorage;
 
     @Override
     public Employee handle(HireEmployeeCommand command) {
@@ -44,6 +46,11 @@ public class HireEmployeeImpl implements HireEmployee {
         Position position = findPositionById.findById(command.positionId())
                 .orElseThrow(() -> new PositionNotFoundException(command.positionId().toString()));
         Employee employee = EmployeeMapper.toDomain(command, position);
+
+        command.profileImage().ifPresent(
+                (image) -> employee.setProfileImage(
+                        employeeImageStorage.uploadEmployeeImage(image).value()));
+
         Employee employeeSaved = saveEmployee.save(employee);
 
         EmploymentHistory employmentHistory = EmploymentHistory.create(
