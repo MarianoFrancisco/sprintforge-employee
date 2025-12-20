@@ -4,6 +4,8 @@ import com.sprintforge.common.domain.exception.ValidationException;
 import com.sprintforge.employee.position.domain.valueobject.PositionDescription;
 import com.sprintforge.employee.position.domain.valueobject.PositionId;
 import com.sprintforge.employee.position.domain.valueobject.PositionName;
+
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.time.Instant;
@@ -13,6 +15,7 @@ import static java.time.Instant.now;
 import static java.util.UUID.randomUUID;
 
 @Getter
+@EqualsAndHashCode(of = "name")
 public class Position {
     private final PositionId id;
     private PositionName name;
@@ -56,8 +59,15 @@ public class Position {
     }
 
     public void updateDetails(String name, String description) {
-        this.name = new PositionName(name);
-        this.description = new PositionDescription(description);
+        if (!this.isActive || !this.isDeleted) {
+            throw new ValidationException("Solo se pueden actualizar los detalles de un cargo activo");
+        }
+        if (name != null) {
+            this.name = new PositionName(name);
+        }
+        if (description != null) {
+            this.description = new PositionDescription(description);
+        }
         this.updatedAt = now();
     }
 

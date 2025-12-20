@@ -10,5 +10,6 @@ public record PositionName(String value) {
         if (value.length() > 100) {
             throw new ValidationException("El nombre del cargo no puede tener más de 100 caracteres");
         }
+        value = value.trim();
     }
 }
