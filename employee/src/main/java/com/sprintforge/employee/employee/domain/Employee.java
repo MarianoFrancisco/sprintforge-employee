@@ -29,7 +29,7 @@ public class Employee {
     private Position position;
     private EmployeeWorkloadType workloadType;
     private Money salary;
-    private EmployeeProfileImage profileImage;
+    private EmployeeProfileImageKey profileImage;
     private EmployeeStatus status;
 
     public static Employee hire(
@@ -41,8 +41,7 @@ public class Employee {
             LocalDate birthDate,
             Position position,
             EmployeeWorkloadType workloadType,
-            BigDecimal salary,
-            String profileImage) {
+            BigDecimal salary) {
         return new Employee(
                 new EmployeeId(UUID.randomUUID()),
                 new EmployeeCui(cui),
@@ -55,7 +54,7 @@ public class Employee {
                 position,
                 Objects.requireNonNullElse(workloadType, EmployeeWorkloadType.FULL_TIME),
                 new Money(salary),
-                new EmployeeProfileImage(profileImage),
+                EmployeeProfileImageKey.empty(),
                 EmployeeStatus.ACTIVE);
     }
 
@@ -85,7 +84,7 @@ public class Employee {
                 position,
                 workloadType,
                 new Money(salary),
-                new EmployeeProfileImage(profileImage),
+                new EmployeeProfileImageKey(profileImage),
                 status);
     }
 
@@ -93,14 +92,12 @@ public class Employee {
             String firstName,
             String lastName,
             String phoneNumber,
-            LocalDate birthDate,
-            String profileImage) {
+            LocalDate birthDate) {
         this.firstName = new EmployeeFirstName(firstName);
         this.lastName = new EmployeeLastName(lastName);
         this.fullName = firstName + " " + lastName;
         this.phoneNumber = new EmployeePhoneNumber(phoneNumber);
         this.birthDate = new EmployeeBirthDate(birthDate);
-        this.profileImage = new EmployeeProfileImage(profileImage);
     }
 
     public void increaseSalary(BigDecimal amount) {
@@ -142,5 +139,9 @@ public class Employee {
         }
 
         this.status = EmployeeStatus.TERMINATED;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = new EmployeeProfileImageKey(profileImage);
     }
 }
