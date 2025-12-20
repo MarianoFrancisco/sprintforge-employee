@@ -59,7 +59,7 @@ public class Position {
     }
 
     public void updateDetails(String name, String description) {
-        if (!this.isActive || !this.isDeleted) {
+        if (!this.isActive || this.isDeleted) {
             throw new ValidationException("Solo se pueden actualizar los detalles de un cargo activo");
         }
         if (name != null) {

@@ -1,29 +1,13 @@
 package com.sprintforge.employee.position.infrastructure.adapter.in.rest.controller;
 
-import com.sprintforge.employee.position.application.port.in.command.ActivatePosition;
-import com.sprintforge.employee.position.application.port.in.command.CreatePosition;
-import com.sprintforge.employee.position.application.port.in.command.DeactivatePosition;
-import com.sprintforge.employee.position.application.port.in.command.DeletePosition;
-import com.sprintforge.employee.position.application.port.in.query.GetAllPositions;
-import com.sprintforge.employee.position.application.port.in.command.UpdatePositionDetail;
-import com.sprintforge.employee.position.application.port.in.query.GetPositionById;
 import com.sprintforge.employee.position.domain.Position;
-import com.sprintforge.employee.position.infrastructure.adapter.in.rest.dto.CreatePositionRequestDTO;
-import com.sprintforge.employee.position.infrastructure.adapter.in.rest.dto.PositionResponseDTO;
-import com.sprintforge.employee.position.infrastructure.adapter.in.rest.dto.UpdatePositionDetailRequestDTO;
+import com.sprintforge.employee.position.application.port.in.command.*;
+import com.sprintforge.employee.position.application.port.in.query.*;
+import com.sprintforge.employee.position.infrastructure.adapter.in.rest.dto.*;
 import com.sprintforge.employee.position.infrastructure.adapter.in.rest.mapper.PositionRestMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -46,17 +30,9 @@ public class PositionController {
 
     @GetMapping
     public List<PositionResponseDTO> getAll(
-            @RequestParam(required = false) String searchTerm,
-            @RequestParam(required = false) Boolean isActive,
-            @RequestParam(required = false) Boolean isDeleted
+            GetAllPositionsQuery query
     ) {
-        List<Position> positions = getAllPositions.handle(
-                PositionRestMapper.toQuery(
-                        searchTerm,
-                        isActive,
-                        isDeleted
-                )
-        );
+        List<Position> positions = getAllPositions.handle(query);
         return positions.stream()
                 .map(PositionRestMapper::toResponse)
                 .toList();
@@ -81,9 +57,9 @@ public class PositionController {
         return PositionRestMapper.toResponse(saved);
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public PositionResponseDTO updateDetails(
-            @RequestParam UUID id,
+            @PathVariable UUID id,
             @RequestBody @Valid UpdatePositionDetailRequestDTO dto
     ) {
         Position updated = updatePositionDetail.handle(
@@ -111,9 +87,9 @@ public class PositionController {
         return PositionRestMapper.toResponse(deactivated);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
-    public void delete(@RequestParam UUID id) {
+    public void delete(@PathVariable UUID id) {
         deletePosition.handle(
                 PositionRestMapper.toDeleteCommand(id)
         );
