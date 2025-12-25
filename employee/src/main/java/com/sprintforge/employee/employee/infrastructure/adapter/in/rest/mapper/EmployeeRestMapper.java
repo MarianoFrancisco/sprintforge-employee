@@ -38,6 +38,12 @@ public class EmployeeRestMapper {
         );
     }
 
+    public GetEmployeesByIdsQuery toQueryByIds(
+            GetEmployeesByIdsRequestDTO dto
+    ) {
+        return new GetEmployeesByIdsQuery(dto.ids());
+    }
+
     public GetEmployeeByCuiQuery toQueryByCui(String cui) {
         return new GetEmployeeByCuiQuery(cui);
     }
@@ -48,6 +54,12 @@ public class EmployeeRestMapper {
 
     public GetEmployeeByIdQuery toQueryById(UUID id) {
         return new GetEmployeeByIdQuery(id);
+    }
+
+    public ValidateEmployeesCommand toValidateCommnd(
+            ValidateEmployeesRequestDTO dto
+    ) {
+        return new ValidateEmployeesCommand(dto.ids());
     }
 
     public HireEmployeeCommand toHireCommand(
