@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @NullMarked
@@ -17,9 +18,13 @@ public interface EmployeeJpaRepository extends
 
     boolean existsByEmail(String email);
 
+    boolean existsByIdIn(Set<UUID> ids);
+
     Optional<EmployeeEntity> findByCui(String cui);
 
     Optional<EmployeeEntity> findByEmail(String email);
 
     Optional<EmployeeEntity> findById(UUID id);
+
+    Set<EmployeeEntity> findByIdIn(Set<UUID> ids);
 }

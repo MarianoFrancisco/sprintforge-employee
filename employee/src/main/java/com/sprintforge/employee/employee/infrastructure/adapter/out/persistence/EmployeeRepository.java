@@ -14,15 +14,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+
+import static java.util.stream.Collectors.toSet;
 
 @NullMarked
 @Repository
 @RequiredArgsConstructor
 public class EmployeeRepository implements
+        ExistEmployeesByIdIn,
         ExistsEmployeeByCui,
         ExistsEmployeeByEmail,
         FindAllEmployees,
+        FindEmployeesByIdIn,
         FindEmployeeByCui,
         FindEmployeeByEmail,
         FindEmployeeById,
@@ -81,5 +86,17 @@ public class EmployeeRepository implements
         EmployeeEntity entity = EmployeeEntityMapper.toEntity(employee);
         EmployeeEntity savedEntity = employeeJpaRepository.save(entity);
         return EmployeeEntityMapper.toDomain(savedEntity);
+    }
+
+    @Override
+    public boolean existByIdIn(Set<UUID> ids) {
+        return employeeJpaRepository.existsByIdIn(ids);
+    }
+
+    @Override
+    public Set<Employee> findByIdIn(Set<UUID> ids) {
+        return employeeJpaRepository.findByIdIn(ids).stream()
+                .map(EmployeeEntityMapper::toDomain)
+                .collect(toSet());
     }
 }
