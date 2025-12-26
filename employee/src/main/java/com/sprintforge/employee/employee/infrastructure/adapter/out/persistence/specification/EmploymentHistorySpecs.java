@@ -17,7 +17,7 @@ public class EmploymentHistorySpecs {
         return (root, query, criteriaBuilder) -> (fullname == null || fullname.isBlank())
                 ? null
                 : criteriaBuilder.like(
-                        criteriaBuilder.lower(root.join("employee").get("fullname")),
+                        criteriaBuilder.lower(root.join("employee").get("fullName")),
                         "%" + fullname.toLowerCase() + "%");
     }
 
