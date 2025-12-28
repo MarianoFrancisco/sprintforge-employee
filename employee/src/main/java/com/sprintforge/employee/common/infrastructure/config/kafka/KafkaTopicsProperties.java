@@ -11,4 +11,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "spring.kafka.topics")
 public class KafkaTopicsProperties {
     String employeeCreated;
+    String paidEmployee;
 }

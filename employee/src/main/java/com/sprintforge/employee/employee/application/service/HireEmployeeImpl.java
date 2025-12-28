@@ -1,6 +1,7 @@
 package com.sprintforge.employee.employee.application.service;
 
 import com.sprintforge.employee.employee.application.exception.DuplicateEmployeeException;
+import com.sprintforge.employee.employee.application.mapper.EmployeeIntegrationMapper;
 import com.sprintforge.employee.employee.application.mapper.EmployeeMapper;
 import com.sprintforge.employee.employee.application.port.in.command.HireEmployee;
 import com.sprintforge.employee.employee.application.port.in.command.HireEmployeeCommand;
@@ -61,7 +62,9 @@ public class HireEmployeeImpl implements HireEmployee {
                 command.notes());
 
         saveEmploymentHistory.save(employmentHistory);
-        employeeEventPublisher.publishEmployeeCreated(EmployeeMapper.from(employeeSaved));
+        employeeEventPublisher.publishEmployeeCreated(
+                EmployeeIntegrationMapper.from(employeeSaved)
+        );
         return employeeSaved;
     }
 }
