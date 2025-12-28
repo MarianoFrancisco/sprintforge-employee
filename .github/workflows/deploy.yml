@@ -1,0 +1,80 @@
+name: employee
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set env
+        run: |
+          echo "HOST=${{ secrets.AWS_VM_HOST }}" >> $GITHUB_ENV
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
+          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "KAFKA_HOST=${{ secrets.KAFKA_HOST }}" >> $GITHUB_ENV
+          echo "EUREKA_HOSTNAME=${{ secrets.EUREKA_HOSTNAME }}" >> $GITHUB_ENV
+          echo "PUBLIC_HOST=${{ secrets.PUBLIC_HOST }}" >> $GITHUB_ENV
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> $GITHUB_ENV
+          echo "S3_BUCKET=${{ secrets.S3_BUCKET }}" >> $GITHUB_ENV
+          echo "CLOUDFRONT_BASE_URL=${{ secrets.CLOUDFRONT_BASE_URL }}" >> $GITHUB_ENV
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AWS_VM_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy to AWS VM
+        run: |
+          ssh ${{ secrets.AWS_VM_USER }}@"$HOST" << EOF
+            set -e
+
+            cd ~
+
+            if [ ! -d "sprintforge-employee" ]; then
+              git clone https://github.com/MarianoFrancisco/sprintforge-employee.git
+            fi
+
+            cd sprintforge-employee
+
+            git fetch --all
+            git checkout ${GITHUB_REF_NAME}
+            git pull
+
+            sudo docker container prune -f || true
+            sudo docker image prune -af || true
+            sudo docker builder prune -af || true
+            sudo docker volume prune -f || true
+
+            sudo docker build -t sprintforge-employee .
+
+            sudo docker stop sprintforge-employee || true
+            sudo docker rm sprintforge-employee || true
+
+            sudo docker run -d --name sprintforge-employee \
+              --restart unless-stopped \
+              -p 8001:8001 \
+              -e DB_HOST="${DB_HOST}" \
+              -e DB_USER="${DB_USER}" \
+              -e DB_PASSWORD="${DB_PASSWORD}" \
+              -e KAFKA_HOST="${KAFKA_HOST}" \
+              -e EUREKA_HOSTNAME="${EUREKA_HOSTNAME}" \
+              -e PUBLIC_HOST="${PUBLIC_HOST}" \
+              -e AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+              -e AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+              -e AWS_REGION="${AWS_REGION}" \
+              -e S3_BUCKET="${S3_BUCKET}" \
+              -e CLOUDFRONT_BASE_URL="${CLOUDFRONT_BASE_URL}" \
+              sprintforge-employee
+          EOF
