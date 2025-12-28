@@ -1,5 +1,7 @@
 package com.sprintforge.employee.payment.application.service;
 
+import com.sprintforge.employee.payment.application.mapper.PaymentIntegrationEventMapper;
+import com.sprintforge.employee.payment.application.port.out.event.PaymentEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +32,8 @@ public class PayEmployeeImpl implements PayEmployee {
     private final FindEmploymentByType findEmploymentByType;
     private final SavePayment savePayment;
 
+    private final PaymentEventPublisher paymentEventPublisher;
+
     @Override
     public Payment handle(PayEmployeeCommand command) {
         Employee employee = findEmployeeByCui.findByCui(command.cui())
@@ -57,8 +61,11 @@ public class PayEmployeeImpl implements PayEmployee {
                 });
 
         Payment payment = PaymentMapper.toDomain(command, employee);
-        savePayment.save(payment);
+        Payment savedPayment = savePayment.save(payment);
 
+        paymentEventPublisher.publishPaidEmployee(
+                PaymentIntegrationEventMapper.from(savedPayment)
+        );
         return payment;
     }
 
