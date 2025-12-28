@@ -64,7 +64,7 @@ jobs:
 
             sudo docker run -d --name sprintforge-employee \
               --restart unless-stopped \
-              -p 8001:8001 \
+              -p 8002:8002 \
               -e DB_HOST="${DB_HOST}" \
               -e DB_USER="${DB_USER}" \
               -e DB_PASSWORD="${DB_PASSWORD}" \
