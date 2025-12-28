@@ -1,0 +1,12 @@
+CREATE TABLE position
+(
+    id          UUID PRIMARY KEY,
+    name        VARCHAR(100) NOT NULL UNIQUE,
+    description VARCHAR(255),
+
+    is_active   BOOLEAN      NOT NULL DEFAULT TRUE,
+    is_deleted  BOOLEAN      NOT NULL DEFAULT FALSE,
+
+    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
