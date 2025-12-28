@@ -61,6 +61,7 @@ spring:
 
     topics:
       employee-created: ${KAFKA_TOPIC_EMPLOYEE_CREATED:employee.created}
+      paid-employee: ${KAFKA_TOPIC_PAID_EMPLOYEE:paid.employee}
 
     groups:
       default-group: ${spring.kafka.consumer.group-id}
