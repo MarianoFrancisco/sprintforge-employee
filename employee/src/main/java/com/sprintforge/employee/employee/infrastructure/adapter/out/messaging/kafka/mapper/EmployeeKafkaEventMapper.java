@@ -14,7 +14,8 @@ public class EmployeeKafkaEventMapper {
                 event.email(),
                 event.firstName(),
                 event.lastName(),
-                event.fullName()
+                event.fullName(),
+                event.status()
         );
     }
 }

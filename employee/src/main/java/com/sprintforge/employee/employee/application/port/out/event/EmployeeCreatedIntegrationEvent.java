@@ -8,6 +8,7 @@ public record EmployeeCreatedIntegrationEvent(
         String email,
         String firstName,
         String lastName,
-        String fullName
+        String fullName,
+        String status
 ) {
 }
