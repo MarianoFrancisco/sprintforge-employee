@@ -1,5 +1,7 @@
 package com.sprintforge.employee.employee.application.service;
 
+import com.sprintforge.employee.employee.application.mapper.EmployeeIntegrationMapper;
+import com.sprintforge.employee.employee.application.port.out.event.EmployeeEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,7 @@ public class SuspendEmployeeImpl implements SuspendEmployee {
     private final FindActiveEmploymentByEmployee findActiveEmploymentByEmployee;
     private final SaveEmployee saveEmployee;
     private final SaveEmploymentHistory saveEmploymentHistory;
+    private final EmployeeEventPublisher employeeEventPublisher;
 
     @Override
     public Employee handle(SuspendEmployeeCommand command) {
@@ -52,6 +55,10 @@ public class SuspendEmployeeImpl implements SuspendEmployee {
                 employee.getSalary().amount(),
                 command.notes());
         saveEmploymentHistory.save(newPeriod);
+
+        employeeEventPublisher.publishEmployeeSuspended(
+                EmployeeIntegrationMapper.fromSuspended(employee)
+        );
         return employee;
     }
 
