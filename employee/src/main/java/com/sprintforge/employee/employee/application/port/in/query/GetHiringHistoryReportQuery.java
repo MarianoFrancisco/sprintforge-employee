@@ -2,7 +2,7 @@ package com.sprintforge.employee.employee.application.port.in.query;
 
 import java.time.LocalDate;
 
-public record GetHiredEmployeesReportQuery(
+public record GetHiringHistoryReportQuery(
         LocalDate from,
         LocalDate to
 ) {

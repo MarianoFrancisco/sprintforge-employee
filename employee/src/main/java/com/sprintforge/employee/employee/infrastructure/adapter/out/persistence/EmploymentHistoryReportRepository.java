@@ -1,10 +1,10 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.out.persistence;
 
-import com.sprintforge.employee.employee.application.port.in.query.GetHiredEmployeesReportQuery;
-import com.sprintforge.employee.employee.application.port.in.query.GetTerminatedEmployeesReportQuery;
+import com.sprintforge.common.application.port.result.EmployeeRow;
+import com.sprintforge.common.application.port.result.EmployeesByEmploymentHistoryReportResult;
+import com.sprintforge.employee.employee.application.port.in.query.GetHiringHistoryReportQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetTerminationHistoryReportQuery;
 import com.sprintforge.employee.employee.application.port.out.persistence.LoadEmploymentHistoryReport;
-import com.sprintforge.employee.employee.application.port.result.EmployeeRow;
-import com.sprintforge.employee.employee.application.port.result.EmployeesByEmploymentHistoryReportResult;
 import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.projection.EmploymentHistoryEmployeeView;
 import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.repository.EmploymentHistoryReportJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class EmploymentHistoryReportRepository
     private final EmploymentHistoryReportJpaRepository jpa;
 
     @Override
-    public EmployeesByEmploymentHistoryReportResult loadHired(GetHiredEmployeesReportQuery query) {
+    public EmployeesByEmploymentHistoryReportResult loadHired(GetHiringHistoryReportQuery query) {
         List<EmploymentHistoryEmployeeView> rows =
                 jpa.hiredEmployees(
                         query.from(),
@@ -34,13 +34,15 @@ public class EmploymentHistoryReportRepository
                 mapToEmployeeRows(rows);
 
         return new EmployeesByEmploymentHistoryReportResult(
+                query.from(),
+                query.to(),
                 employees.size(),
                 employees
         );
     }
 
     @Override
-    public EmployeesByEmploymentHistoryReportResult loadTerminated(GetTerminatedEmployeesReportQuery query) {
+    public EmployeesByEmploymentHistoryReportResult loadTerminated(GetTerminationHistoryReportQuery query) {
         List<EmploymentHistoryEmployeeView> rows =
                 jpa.terminatedEmployees(
                         query.from(),
@@ -51,6 +53,8 @@ public class EmploymentHistoryReportRepository
                 mapToEmployeeRows(rows);
 
         return new EmployeesByEmploymentHistoryReportResult(
+                query.from(),
+                query.to(),
                 employees.size(),
                 employees
         );
