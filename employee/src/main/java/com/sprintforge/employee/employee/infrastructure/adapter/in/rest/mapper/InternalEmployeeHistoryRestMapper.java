@@ -37,6 +37,8 @@ public class InternalEmployeeHistoryRestMapper {
             EmployeesByEmploymentHistoryReportResult result
     ) {
         return new EmployeesByEmploymentHistoryReportResponseDTO(
+                result.from(),
+                result.to(),
                 result.total(),
                 mapEmployees(result.employees())
         );
