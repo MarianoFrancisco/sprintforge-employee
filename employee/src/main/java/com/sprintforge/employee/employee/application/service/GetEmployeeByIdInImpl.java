@@ -5,6 +5,7 @@ import com.sprintforge.employee.employee.application.port.in.query.GetEmployeesB
 import com.sprintforge.employee.employee.application.port.in.query.GetEmployeesByIdsQuery;
 import com.sprintforge.employee.employee.application.port.out.persistence.FindEmployeesByIdIn;
 import com.sprintforge.employee.employee.domain.Employee;
+import com.sprintforge.employee.employee.infrastructure.adapter.out.storage.S3EmployeeImageStorage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,14 +18,30 @@ import java.util.Set;
 public class GetEmployeeByIdInImpl implements GetEmployeesByIds {
 
     private final FindEmployeesByIdIn findEmployeesByIdIn;
+    private final S3EmployeeImageStorage employeeImageStorage;
 
     @Override
     public Set<Employee> handle(GetEmployeesByIdsQuery query) {
-        Set<Employee> employees = findEmployeesByIdIn.findByIdIn(query.ids());
+
+        Set<Employee> employees =
+                findEmployeesByIdIn.findByIdIn(query.ids());
 
         if (query.ids().size() != employees.size()) {
             throw new InvalidEmployeesException(query.ids());
         }
+
+        employees.forEach(this::resolveProfileImage);
+
         return employees;
+    }
+
+    private void resolveProfileImage(Employee employee) {
+        if (employee.getProfileImage() == null || employee.getProfileImage().isEmpty()) {
+            return;
+        }
+
+        employeeImageStorage
+                .getEmployeeImageUrl(employee.getProfileImage())
+                .ifPresent(employee::setProfileImage);
     }
 }
