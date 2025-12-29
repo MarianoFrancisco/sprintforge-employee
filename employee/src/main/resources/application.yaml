@@ -61,6 +61,9 @@ spring:
 
     topics:
       employee-created: ${KAFKA_TOPIC_EMPLOYEE_CREATED:employee.created}
+      employee-retired: ${KAFKA_TOPIC_EMPLOYEE_RETIRED:employee.retired}
+      employee-suspended: ${KAFKA_TOPIC_EMPLOYEE_SUSPENDED:employee.suspended}
+      employee-reactivated: ${KAFKA_TOPIC_EMPLOYEE_REACTIVATED:employee.reactivated}
       paid-employee: ${KAFKA_TOPIC_PAID_EMPLOYEE:paid.employee}
 
     groups:
