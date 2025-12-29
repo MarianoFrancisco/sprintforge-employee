@@ -1,11 +1,11 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.employee.employee.application.port.in.query.GetHiredEmployeesReportQuery;
-import com.sprintforge.employee.employee.application.port.in.query.GetTerminatedEmployeesReportQuery;
-import com.sprintforge.employee.employee.application.port.result.EmployeeRow;
-import com.sprintforge.employee.employee.application.port.result.EmployeesByEmploymentHistoryReportResult;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeRowDTO;
-import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeesByEmploymentHistoryReportResponseDTO;
+import com.sprintforge.common.application.port.result.EmployeeRow;
+import com.sprintforge.common.application.port.result.EmployeesByEmploymentHistoryReportResult;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.EmployeeRowDTO;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.EmployeesByEmploymentHistoryReportResponseDTO;
+import com.sprintforge.employee.employee.application.port.in.query.GetHiringHistoryReportQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetTerminationHistoryReportQuery;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HiredEmployeeHistoryRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.TerminatedEmployeeHistoryRequestDTO;
 import lombok.experimental.UtilityClass;
@@ -15,19 +15,19 @@ import java.util.List;
 @UtilityClass
 public class InternalEmployeeHistoryRestMapper {
 
-    public GetHiredEmployeesReportQuery toHiredEmployeesReportQuery(
+    public GetHiringHistoryReportQuery toHiringHistoryReportQuery(
             HiredEmployeeHistoryRequestDTO dto
     ) {
-        return new GetHiredEmployeesReportQuery(
+        return new GetHiringHistoryReportQuery(
                 dto.from(),
                 dto.to()
         );
     }
 
-    public GetTerminatedEmployeesReportQuery toTerminatedEmployeesReportQuery(
+    public GetTerminationHistoryReportQuery toTerminationHistoryReportQuery(
             TerminatedEmployeeHistoryRequestDTO dto
     ) {
-        return new GetTerminatedEmployeesReportQuery(
+        return new GetTerminationHistoryReportQuery(
                 dto.from(),
                 dto.to()
         );
