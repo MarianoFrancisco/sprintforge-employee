@@ -1,6 +1,7 @@
 package com.sprintforge.employee.payment.infrastructure.adapter.out.persistence;
 
 import com.sprintforge.employee.employee.domain.Employee;
+import com.sprintforge.employee.employee.infrastructure.adapter.out.persistence.entity.EmployeeEntity;
 import com.sprintforge.employee.payment.application.port.in.GetAllPaymentsQuery;
 import com.sprintforge.employee.payment.domain.Payment;
 import com.sprintforge.employee.payment.infrastructure.adapter.out.persistence.entity.PaymentEntity;
@@ -45,7 +46,7 @@ class PaymentRepositoryTest {
     void setUp() {
         employeeDomain = EmployeeFixture.validEmployee();
 
-        var employeeEntity = EmployeeEntityFixture.validEmployeeEntity(UUID.randomUUID());
+        EmployeeEntity employeeEntity = EmployeeEntityFixture.validEmployeeEntity(UUID.randomUUID());
 
         paymentEntity = PaymentEntity.builder()
                 .id(UUID.randomUUID())

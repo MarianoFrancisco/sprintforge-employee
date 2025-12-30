@@ -4,7 +4,6 @@ import com.sprintforge.employee.employee.application.port.in.query.GetAllEmploym
 import com.sprintforge.employee.employee.application.port.in.query.GetAllEmploymentHistoriesQuery;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.domain.EmploymentHistory;
-import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryId;
 import com.sprintforge.employee.employee.domain.valueobject.EmploymentHistoryType;
 import com.sprintforge.employee.test.fixtures.EmployeeFixture;
 import org.junit.jupiter.api.BeforeEach;

@@ -34,16 +34,10 @@ class EmployeeKafkaEventPublisherTest {
     @InjectMocks
     private EmployeeKafkaEventPublisher publisher;
 
-    @BeforeEach
-    void setUp() {
-        when(topics.getEmployeeCreated()).thenReturn("employee.created");
-        when(topics.getEmployeeRetired()).thenReturn("employee.retired");
-        when(topics.getEmployeeSuspended()).thenReturn("employee.suspended");
-        when(topics.getEmployeeReactivated()).thenReturn("employee.reactivated");
-    }
-
     @Test
     void shouldPublishEmployeeCreated() {
+        when(topics.getEmployeeCreated()).thenReturn("employee.created");
+
         EmployeeCreatedIntegrationEvent event = new EmployeeCreatedIntegrationEvent(
                 EMPLOYEE_ID, "1234567890101", "john@test.com",
                 "John", "Doe", "John Doe", "ACTIVE"
@@ -53,12 +47,13 @@ class EmployeeKafkaEventPublisherTest {
 
         ArgumentCaptor<Object> messageCaptor = ArgumentCaptor.forClass(Object.class);
         verify(kafkaTemplate).send(eq("employee.created"), eq(EMPLOYEE_ID.toString()), messageCaptor.capture());
-
         assert messageCaptor.getValue() instanceof EmployeeCreatedKafkaMessage;
     }
 
     @Test
     void shouldPublishEmployeeRetired() {
+        when(topics.getEmployeeRetired()).thenReturn("employee.retired");
+
         EmployeeRetiredIntegrationEvent event = new EmployeeRetiredIntegrationEvent(
                 EMPLOYEE_ID, "1234567890101", "john@test.com", "John Doe", "TERMINATED"
         );
@@ -72,6 +67,8 @@ class EmployeeKafkaEventPublisherTest {
 
     @Test
     void shouldPublishEmployeeSuspended() {
+        when(topics.getEmployeeSuspended()).thenReturn("employee.suspended");
+
         EmployeeSuspendedIntegrationEvent event = new EmployeeSuspendedIntegrationEvent(
                 EMPLOYEE_ID, "1234567890101", "john@test.com", "John Doe", "SUSPENDED"
         );
@@ -85,6 +82,8 @@ class EmployeeKafkaEventPublisherTest {
 
     @Test
     void shouldPublishEmployeeReactivated() {
+        when(topics.getEmployeeReactivated()).thenReturn("employee.reactivated");
+
         EmployeeReactivatedIntegrationEvent event = new EmployeeReactivatedIntegrationEvent(
                 EMPLOYEE_ID, "1234567890101", "john@test.com", "John Doe", "ACTIVE"
         );

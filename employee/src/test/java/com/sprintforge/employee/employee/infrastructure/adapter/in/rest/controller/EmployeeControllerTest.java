@@ -2,6 +2,7 @@ package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.control
 
 import com.sprintforge.employee.employee.application.port.in.command.*;
 import com.sprintforge.employee.employee.application.port.in.query.*;
+import com.sprintforge.employee.employee.domain.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,7 +66,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetAllEmployees() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(getAllEmployees.handle(any(GetAllEmployeesQuery.class)))
                 .thenReturn(List.of(employee));
@@ -78,7 +79,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetEmployeeByCui() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(getEmployeeByCui.handle(any(GetEmployeeByCuiQuery.class)))
                 .thenReturn(employee);
@@ -91,7 +92,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetEmployeeByEmail() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(getEmployeeByEmail.handle(any(GetEmployeeByEmailQuery.class)))
                 .thenReturn(employee);
@@ -104,7 +105,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetEmployeeById() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(getEmployeeById.handle(any(GetEmployeeByIdQuery.class)))
                 .thenReturn(employee);
@@ -117,7 +118,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldHireEmployeeWithMultipart() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(hireEmployee.handle(any(HireEmployeeCommand.class)))
                 .thenReturn(employee);
@@ -151,7 +152,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldUpdateEmployeeDetailsWithMultipartPatch() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(updateEmployeeDetail.handle(any(UpdateEmployeeDetailCommand.class)))
                 .thenReturn(employee);
@@ -182,7 +183,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldIncreaseSalary() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(increaseEmployeeSalary.handle(any(IncreaseEmployeeSalaryCommand.class)))
                 .thenReturn(employee);
@@ -203,7 +204,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldReinstateEmployee() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(reinstateEmployee.handle(any(ReinstateEmployeeCommand.class)))
                 .thenReturn(employee);
@@ -223,7 +224,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldSuspendEmployee() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(suspendEmployee.handle(any(SuspendEmployeeCommand.class)))
                 .thenReturn(employee);
@@ -243,7 +244,7 @@ class EmployeeControllerTest {
 
     @Test
     void shouldTerminateEmployee() throws Exception {
-        var employee = validEmployee();
+        Employee employee = validEmployee();
 
         when(terminateEmployee.handle(any(TerminateEmployeeCommand.class)))
                 .thenReturn(employee);

@@ -1,10 +1,11 @@
 package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.employee.common.domain.valueobject.Money;
 import com.sprintforge.employee.employee.application.port.in.command.HireEmployeeCommand;
 import com.sprintforge.employee.employee.application.port.in.command.ValidateEmployeesCommand;
+import com.sprintforge.employee.employee.application.port.in.query.GetEmployeesByIdsQuery;
 import com.sprintforge.employee.employee.domain.Employee;
 import com.sprintforge.employee.employee.domain.valueobject.*;
+import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.GetEmployeesByIdsRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HireEmployeeRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.ValidateEmployeesRequestDTO;
@@ -15,7 +16,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,7 +42,7 @@ class EmployeeRestMapperTest {
         Set<UUID> ids = Set.of(EMPLOYEE_ID);
         GetEmployeesByIdsRequestDTO dto = new GetEmployeesByIdsRequestDTO(ids);
 
-        var query = EmployeeRestMapper.toQueryByIds(dto);
+        GetEmployeesByIdsQuery query = EmployeeRestMapper.toQueryByIds(dto);
 
         assertEquals(ids, query.ids());
     }
@@ -141,7 +141,7 @@ class EmployeeRestMapperTest {
                 EmployeeStatus.ACTIVE
         );
 
-        var dto = EmployeeRestMapper.toResponse(employee);
+        EmployeeResponseDTO dto = EmployeeRestMapper.toResponse(employee);
 
         assertAll(
                 () -> assertEquals(EMPLOYEE_ID, dto.id()),

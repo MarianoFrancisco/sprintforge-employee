@@ -50,9 +50,12 @@ class InternalEmployeeControllerTest {
         UUID id1 = UUID.randomUUID();
         UUID id2 = UUID.randomUUID();
 
+        String body = "{\"ids\":[\"" + id1 + "\",\"" + id2 + "\"]}";
+
         mockMvc.perform(post("/internal-api/v1/employee/get-by-ids")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("[\"" + id1 + "\",\"" + id2 + "\"]"))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isOk());
 
         verify(getEmployeesByIds).handle(any(GetEmployeesByIdsQuery.class));

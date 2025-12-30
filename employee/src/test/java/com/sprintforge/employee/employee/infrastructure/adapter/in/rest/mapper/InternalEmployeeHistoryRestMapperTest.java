@@ -2,6 +2,9 @@ package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.mapper;
 
 import com.sprintforge.common.application.port.result.EmployeeRow;
 import com.sprintforge.common.application.port.result.EmployeesByEmploymentHistoryReportResult;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.EmployeesByEmploymentHistoryReportResponseDTO;
+import com.sprintforge.employee.employee.application.port.in.query.GetHiringHistoryReportQuery;
+import com.sprintforge.employee.employee.application.port.in.query.GetTerminationHistoryReportQuery;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.HiredEmployeeHistoryRequestDTO;
 import com.sprintforge.employee.employee.infrastructure.adapter.in.rest.dto.TerminatedEmployeeHistoryRequestDTO;
 import org.junit.jupiter.api.Test;
@@ -21,7 +24,7 @@ class InternalEmployeeHistoryRestMapperTest {
                 LocalDate.of(2025, 1, 31)
         );
 
-        var query = InternalEmployeeHistoryRestMapper.toHiringHistoryReportQuery(dto);
+        GetHiringHistoryReportQuery query = InternalEmployeeHistoryRestMapper.toHiringHistoryReportQuery(dto);
 
         assertAll(
                 () -> assertEquals(dto.from(), query.from()),
@@ -36,7 +39,7 @@ class InternalEmployeeHistoryRestMapperTest {
                 LocalDate.of(2025, 2, 28)
         );
 
-        var query = InternalEmployeeHistoryRestMapper.toTerminationHistoryReportQuery(dto);
+        GetTerminationHistoryReportQuery query = InternalEmployeeHistoryRestMapper.toTerminationHistoryReportQuery(dto);
 
         assertAll(
                 () -> assertEquals(dto.from(), query.from()),
@@ -58,7 +61,7 @@ class InternalEmployeeHistoryRestMapperTest {
                 ))
         );
 
-        var response = InternalEmployeeHistoryRestMapper.fromResult(result);
+        EmployeesByEmploymentHistoryReportResponseDTO response = InternalEmployeeHistoryRestMapper.fromResult(result);
 
         assertAll(
                 () -> assertEquals(result.from(), response.from()),
