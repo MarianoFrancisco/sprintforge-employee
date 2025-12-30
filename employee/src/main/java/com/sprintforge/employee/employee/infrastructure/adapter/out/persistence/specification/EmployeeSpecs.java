@@ -73,10 +73,8 @@ public class EmployeeSpecs {
                                                 fullnameContains(employeeSearch),
                                                 cuiEquals(employeeSearch),
                                                 phoneNumberEquals(employeeSearch),
-                                                emailEquals(positionSearch)),
-                                Specification.anyOf(
-                                                positionNameContains(positionSearch),
-                                                positionIdEquals(positionSearch)),
+                                                emailEquals(employeeSearch)),
+                                positionNameContains(positionSearch),
                                 workloadTypeEquals(workloadType),
                                 statusEquals(status));
         }
