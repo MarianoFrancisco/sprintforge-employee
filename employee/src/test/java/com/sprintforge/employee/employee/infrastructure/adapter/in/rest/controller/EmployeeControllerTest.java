@@ -2,7 +2,6 @@ package com.sprintforge.employee.employee.infrastructure.adapter.in.rest.control
 
 import com.sprintforge.employee.employee.application.port.in.command.*;
 import com.sprintforge.employee.employee.application.port.in.query.*;
-import com.sprintforge.employee.employee.domain.Employee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,8 +17,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import static com.sprintforge.employee.test.fixtures.EmployeeFixture.validEmployee;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,7 +42,6 @@ class EmployeeControllerTest {
     private GetEmployeeByEmail getEmployeeByEmail;
     @Mock
     private GetEmployeeById getEmployeeById;
-
     @Mock
     private HireEmployee hireEmployee;
     @Mock
@@ -65,8 +65,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetAllEmployees() throws Exception {
+        var employee = validEmployee();
+
         when(getAllEmployees.handle(any(GetAllEmployeesQuery.class)))
-                .thenReturn(List.of(mock(Employee.class)));
+                .thenReturn(List.of(employee));
 
         mockMvc.perform(get("/api/v1/employee"))
                 .andExpect(status().isOk());
@@ -76,8 +78,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetEmployeeByCui() throws Exception {
+        var employee = validEmployee();
+
         when(getEmployeeByCui.handle(any(GetEmployeeByCuiQuery.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         mockMvc.perform(get("/api/v1/employee/cui/{cui}", CUI))
                 .andExpect(status().isOk());
@@ -87,8 +91,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetEmployeeByEmail() throws Exception {
+        var employee = validEmployee();
+
         when(getEmployeeByEmail.handle(any(GetEmployeeByEmailQuery.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         mockMvc.perform(get("/api/v1/employee/email/{email}", EMAIL))
                 .andExpect(status().isOk());
@@ -98,8 +104,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldGetEmployeeById() throws Exception {
+        var employee = validEmployee();
+
         when(getEmployeeById.handle(any(GetEmployeeByIdQuery.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         mockMvc.perform(get("/api/v1/employee/{id}", EMPLOYEE_ID))
                 .andExpect(status().isOk());
@@ -109,8 +117,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldHireEmployeeWithMultipart() throws Exception {
+        var employee = validEmployee();
+
         when(hireEmployee.handle(any(HireEmployeeCommand.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         MockMultipartFile profileImage = new MockMultipartFile(
                 "profileImage",
@@ -141,8 +151,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldUpdateEmployeeDetailsWithMultipartPatch() throws Exception {
+        var employee = validEmployee();
+
         when(updateEmployeeDetail.handle(any(UpdateEmployeeDetailCommand.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         MockMultipartFile profileImage = new MockMultipartFile(
                 "profileImage",
@@ -170,8 +182,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldIncreaseSalary() throws Exception {
+        var employee = validEmployee();
+
         when(increaseEmployeeSalary.handle(any(IncreaseEmployeeSalaryCommand.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         mockMvc.perform(post("/api/v1/employee/{cui}/salary/increase", CUI)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -189,8 +203,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldReinstateEmployee() throws Exception {
+        var employee = validEmployee();
+
         when(reinstateEmployee.handle(any(ReinstateEmployeeCommand.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         mockMvc.perform(post("/api/v1/employee/{cui}/reinstate", CUI)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -207,8 +223,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldSuspendEmployee() throws Exception {
+        var employee = validEmployee();
+
         when(suspendEmployee.handle(any(SuspendEmployeeCommand.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         mockMvc.perform(post("/api/v1/employee/{cui}/suspend", CUI)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -225,8 +243,10 @@ class EmployeeControllerTest {
 
     @Test
     void shouldTerminateEmployee() throws Exception {
+        var employee = validEmployee();
+
         when(terminateEmployee.handle(any(TerminateEmployeeCommand.class)))
-                .thenReturn(mock(Employee.class));
+                .thenReturn(employee);
 
         mockMvc.perform(post("/api/v1/employee/{cui}/terminate", CUI)
                         .contentType(MediaType.APPLICATION_JSON)

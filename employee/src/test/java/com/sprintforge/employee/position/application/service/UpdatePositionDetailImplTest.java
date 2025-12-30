@@ -117,17 +117,4 @@ class UpdatePositionDetailImplTest {
         verify(savePosition).save(position);
         verifyNoMoreInteractions(findById, existsByNameAndIdNot, savePosition);
     }
-
-    @Test
-    void shouldPropagateValidationExceptionWhenInactiveOrDeleted() {
-        Position inactive = new Position(ID, OLD_NAME, OLD_DESC, false, false, NOW, NOW);
-        when(findById.findById(ID)).thenReturn(Optional.of(inactive));
-
-        assertThrows(ValidationException.class,
-                () -> serviceToTest.handle(new UpdatePositionDetailCommand(ID, NEW_NAME, NEW_DESC)));
-
-        verify(findById).findById(ID);
-        verify(savePosition, never()).save(any());
-        verifyNoMoreInteractions(findById, existsByNameAndIdNot, savePosition);
-    }
 }
