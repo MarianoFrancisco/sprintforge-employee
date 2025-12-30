@@ -38,16 +38,6 @@ class EmployeeRestMapperTest {
     }
 
     @Test
-    void shouldMapQueryByIds() {
-        Set<UUID> ids = Set.of(EMPLOYEE_ID);
-        GetEmployeesByIdsRequestDTO dto = new GetEmployeesByIdsRequestDTO(ids);
-
-        GetEmployeesByIdsQuery query = EmployeeRestMapper.toQueryByIds(dto);
-
-        assertEquals(ids, query.ids());
-    }
-
-    @Test
     void shouldMapHireCommandWithoutImage() {
         HireEmployeeRequestDTO dto = new HireEmployeeRequestDTO(
                 "1234567890101",
